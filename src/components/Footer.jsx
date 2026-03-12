@@ -98,7 +98,7 @@ const Footer = () => {
 
             {/* Optional CTA Button in Footer */}
             <a
-                href="/contact"
+                href="/#/contact"
                 className="inline-block mt-5 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full text-sm shadow-md transition-all"
             >
                 Contact Us

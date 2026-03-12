@@ -8,25 +8,22 @@ import MeetOurTeam from "../components/About Us/MeetOurTeam";
 import Guest from "../components/About Us/Guest";
 import Sustainability from "../components/About Us/Sustainability";
 
-
-
-const Home = () => {
+const About = () => {
   return (
     <div className="relative">
       <Navbar />
       <AboutHero />
       <WhoWeAre />
-      
-      <MissionVision/>
-      <WhyChooseUs/>
-      <MeetOurTeam/>
-      <Guest/>
-      <Sustainability/>
-     
+
+      <MissionVision />
+      <WhyChooseUs />
+      <MeetOurTeam />
+      <Guest />
+      <Sustainability />
+
       <Footer />
-     
     </div>
   );
 };
 
-export default Home;
+export default About;

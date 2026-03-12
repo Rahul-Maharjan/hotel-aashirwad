@@ -17,7 +17,7 @@ const Navbar = () => {
       submenu: [
         { label: "Twin Room", href: "/#/twin-room" },
         { label: "Family Room", href: "/#/family-room" },
-        { label: "Suite Room", href: "/#/suite-room" },
+        { label: "Suite Room", href: "/#/rooms/suite" },
       ],
     },
     {
