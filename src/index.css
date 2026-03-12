@@ -17,3 +17,10 @@
     background-position: 30% 30%, 70% 70%;
   }
 }
+
+@font-face {
+  font-family: "new-order";
+  src: url("/src/assets/fonts/new-order.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
