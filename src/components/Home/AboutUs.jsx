@@ -26,10 +26,10 @@ const AboutUs = () => {
           transition={{ duration: 0.8 }}
           className="text-gray-800"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-5 text-[#1e2a54] leading-tight">
+          <h2 className="text-3xl md:text-4xl font-bold mb-5 text-[#1e2a54]">
             About Hotel Aashirwad
           </h2>
-          <p className="text-base md:text-lg leading-relaxed mb-6 text-justify text-gray-700">
+          <p className="text-base md:text-lg mb-6 text-justify text-gray-700">
             Welcome to Hotel Aashirwad and Restaurant, nestled in the serene beauty of Pokhara. 
             Hotel Aashirwad is your ultimate destination for a luxurious and peaceful stay. 
             We blend traditional Nepali hospitality with modern amenities to offer a truly unforgettable experience.

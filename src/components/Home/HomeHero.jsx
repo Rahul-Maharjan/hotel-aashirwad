@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "swiper/css";
-import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { Autoplay } from "swiper/modules";
 
 const HeroSection = () => {
   const [form, setForm] = useState({
@@ -63,20 +61,15 @@ const HeroSection = () => {
     }
 
     alert(
-      `Room is available!\nFrom: ${form.checkin}\nTo: ${form.checkout}\nAdults: ${form.adults}\nChildren: ${form.children}`
+      `Room is available!\nFrom: ${form.checkin}\nTo: ${form.checkout}\nAdults: ${form.adults}\nChildren: ${form.children}`,
     );
   };
-
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
       <Swiper
-        modules={[Autoplay, Navigation]}
+        modules={[Autoplay]}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
-        navigation={{
-          prevEl: ".custom-swiper-prev",
-          nextEl: ".custom-swiper-next",
-        }}
         loop
         className="w-full h-full"
         speed={800}
@@ -94,7 +87,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 1 }}
                 >
-                  <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-pulse">
+                  <h1 className="text-4xl md:text-6xl mb-4 leading-tight drop-shadow-lg">
                     {slide.title}
                   </h1>
                   <p className="text-lg md:text-2xl mb-8 drop-shadow-md animate-fadeIn">
@@ -105,18 +98,10 @@ const HeroSection = () => {
             </div>
           </SwiperSlide>
         ))}
-
-        {/* Custom Navigation Buttons */}
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer custom-swiper-prev bg-white bg-opacity-70 hover:bg-opacity-100 p-3 rounded-full shadow-md">
-          <FaChevronLeft className="text-xl text-[#1e2a54]" />
-        </div>
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 cursor-pointer custom-swiper-next bg-white bg-opacity-70 hover:bg-opacity-100 p-3 rounded-full shadow-md">
-          <FaChevronRight className="text-xl text-[#1e2a54]" />
-        </div>
       </Swiper>
 
       {/* Booking Form */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
@@ -189,7 +174,7 @@ const HeroSection = () => {
             </button>
           </div>
         </form>
-      </motion.div>
+      </motion.div> */}
     </section>
   );
 };
