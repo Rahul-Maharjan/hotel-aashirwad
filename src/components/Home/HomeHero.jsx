@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 
 const HeroSection = () => {
-  const [form, setForm] = useState({
-    checkin: "",
-    checkout: "",
-    adults: "1",
-    children: "0",
-  });
+  // const [form, setForm] = useState({
+  //   checkin: "",
+  //   checkout: "",
+  //   adults: "1",
+  //   children: "0",
+  // });
 
   const [slides] = useState([
     {
@@ -33,37 +33,37 @@ const HeroSection = () => {
     },
   ]);
 
-  const today = new Date().toISOString().split("T")[0];
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  // const today = new Date().toISOString().split("T")[0];
+  // const handleChange = (e) => {
+  //   setForm({ ...form, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    const checkinDate = new Date(form.checkin);
-    const checkoutDate = new Date(form.checkout);
-    const now = new Date();
+  //   const checkinDate = new Date(form.checkin);
+  //   const checkoutDate = new Date(form.checkout);
+  //   const now = new Date();
 
-    if (!form.checkin || !form.checkout) {
-      alert("Please select both check-in and check-out dates.");
-      return;
-    }
+  //   if (!form.checkin || !form.checkout) {
+  //     alert("Please select both check-in and check-out dates.");
+  //     return;
+  //   }
 
-    if (checkinDate < now.setHours(0, 0, 0, 0)) {
-      alert("Check-in date must be today or in the future.");
-      return;
-    }
+  //   if (checkinDate < now.setHours(0, 0, 0, 0)) {
+  //     alert("Check-in date must be today or in the future.");
+  //     return;
+  //   }
 
-    if (checkoutDate <= checkinDate) {
-      alert("Check-out date must be after check-in date.");
-      return;
-    }
+  //   if (checkoutDate <= checkinDate) {
+  //     alert("Check-out date must be after check-in date.");
+  //     return;
+  //   }
 
-    alert(
-      `Room is available!\nFrom: ${form.checkin}\nTo: ${form.checkout}\nAdults: ${form.adults}\nChildren: ${form.children}`,
-    );
-  };
+  //   alert(
+  //     `Room is available!\nFrom: ${form.checkin}\nTo: ${form.checkout}\nAdults: ${form.adults}\nChildren: ${form.children}`,
+  //   );
+  // };
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
