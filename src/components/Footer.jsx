@@ -176,9 +176,13 @@ export default function Footer() {
           </div>
 
           {/* CENTER (top on mobile/tablet) */}
-          <div className="text-center max-w-[33%] mx-auto order-1 lg:order-none px-12 lg:px-0">
+          <div className="text-center w-full lg:max-w-[33%] mx-auto order-1 lg:order-none px-6 lg:px-0">
             <div className="flex flex-col md:flex-row justify-center items-center gap-3 mb-4">
-              <img src={logo} alt="Hotel Aashirwad" className="h-12" />
+              <img
+                src={logo}
+                alt="Hotel Aashirwad"
+                className="h-12 w-auto shrink-0"
+              />
 
               <h1 className="text-2xl md:text-3xl lg:text-4xl tracking-wide font-heading italic text-black">
                 <span className="font-light">Hotel</span>
