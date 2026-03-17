@@ -36,23 +36,16 @@ const Blog = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.remove(
-              "opacity-0",
-              "translate-y-16",
-              "scale-95",
-              "blur-md"
-            );
+            entry.target.classList.remove("opacity-0", "translate-y-10");
 
-            entry.target.classList.add(
-              "opacity-100",
-              "translate-y-0",
-              "scale-100",
-              "blur-0"
-            );
+            entry.target.classList.add("opacity-100", "translate-y-0");
+
+            // Reveal each card once and stop observing to keep scrolling smooth.
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
 
     cardsRef.current.forEach((card) => {
@@ -63,14 +56,15 @@ const Blog = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-
+    <section className="bg-[#efefef] py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         {/* HEADER */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl tracking-widest font-light">BLOG</h2>
+        <div className="mb-12 text-center sm:mb-16">
+          <h2 className="font-serif text-3xl uppercase tracking-[0.14em] text-[#111111] sm:text-4xl">
+            Blog
+          </h2>
 
-          <p className="mt-4 text-gray-600 max-w-xl mx-auto">
+          <p className="mx-auto mt-4 max-w-xl text-[#4a4a4a]">
             Discover travel stories, local experiences and useful tips to make
             your stay in Pokhara unforgettable.
           </p>
@@ -81,8 +75,7 @@ const Blog = () => {
         </div>
 
         {/* BLOG GRID */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
-
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
           {blogs.map((blog, index) => (
             <div
               key={blog.id}
@@ -90,14 +83,16 @@ const Blog = () => {
               style={{ transitionDelay: `${index * 150}ms` }}
               className="
                 text-center group
-                opacity-0 translate-y-16 scale-95 blur-md
-                transition-all duration-700 ease-out
+                opacity-0 translate-y-10
+                transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform
               "
             >
               <div className="overflow-hidden">
                 <img
                   src={blog.image}
                   alt={blog.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[420px] object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
@@ -106,20 +101,15 @@ const Blog = () => {
                 {blog.category}
               </p>
 
-              <h3 className="text-xl font-semibold mt-3">
-                {blog.title}
-              </h3>
+              <h3 className="text-xl font-semibold mt-3">{blog.title}</h3>
 
-              <p className="text-gray-600 mt-4 px-6">
-                {blog.desc}
-              </p>
+              <p className="text-gray-600 mt-4 px-6">{blog.desc}</p>
 
               <button className="mt-6 text-amber-600 hover:underline">
                 Read more →
               </button>
             </div>
           ))}
-
         </div>
       </div>
     </section>

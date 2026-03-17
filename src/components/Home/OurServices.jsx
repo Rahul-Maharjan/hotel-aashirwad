@@ -68,7 +68,7 @@ const OurServices = () => {
     <section className="relative overflow-hidden bg-[#efefef] py-16 sm:py-20 lg:py-24">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f7f5f1] to-transparent" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
         <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

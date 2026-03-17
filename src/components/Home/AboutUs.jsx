@@ -32,7 +32,7 @@ const AboutUs = () => {
 
   return (
     <section className="w-full bg-[#efefef] py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-5 sm:px-8 lg:gap-16">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-5 sm:px-8 lg:gap-16">
         <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

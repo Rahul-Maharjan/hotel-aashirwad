@@ -81,7 +81,7 @@ const activities = [
 const ActivitiesSection = () => {
   return (
     <section className="bg-[#efefef] py-16 sm:py-20 lg:py-24">
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
         <Motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

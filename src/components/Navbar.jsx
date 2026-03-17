@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { href, Link } from "react-router-dom";
 import { FaSearch, FaPhone, FaChevronRight } from "react-icons/fa";
 import logo from "../assets/logo.png";
 
@@ -11,32 +11,19 @@ const Navbar = () => {
   const menuItems = [
     { label: "Our Hotel", href: "/about" },
     {
-      label: "Rooms & Suites",
+      label: "Accomodations",
       submenu: [
         { label: "Twin Room", href: "/twin-room" },
         { label: "Family Room", href: "/family-room" },
         { label: "Suite Room", href: "/rooms/suite" },
       ],
     },
-    { label: "Offers & Gifts", href: "/offers" },
     { label: "Experiences", href: "/experiences" },
     {
-      label: "Dining & Drinks",
-      submenu: [
-        { label: "Restaurant", href: "/restaurant" },
-        { label: "Bar & Lounge", href: "/bar" },
-      ],
+      label: "Activities", href: "/activities"
     },
-    { label: "Location", href: "/location" },
-    {
-      label: "Wedding & Events",
-      submenu: [
-        { label: "Weddings", href: "/weddings" },
-        { label: "Corporate Events", href: "/events" },
-      ],
-    },
-    { label: "Wellness", href: "/wellness" },
-    { label: "Journal", href: "/blogs" },
+    { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/blogs" },
   ];
 
   useEffect(() => {
