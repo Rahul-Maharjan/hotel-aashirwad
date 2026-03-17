@@ -1,7 +1,35 @@
-import { motion as Motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const aboutImages = [
+  {
+    src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1350&q=80",
+    alt: "Luxury hotel bedroom interior",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1350&q=80",
+    alt: "Elegant suite room with warm lights",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1350&q=80",
+    alt: "Premium room with modern decor",
+  },
+];
+
 const AboutUs = () => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const showPreviousImage = () => {
+    setActiveImageIndex((current) =>
+      current === 0 ? aboutImages.length - 1 : current - 1
+    );
+  };
+
+  const showNextImage = () => {
+    setActiveImageIndex((current) => (current + 1) % aboutImages.length);
+  };
+
   return (
     <section className="w-full bg-[#efefef] py-16 sm:py-20 lg:py-24">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-5 sm:px-8 lg:gap-16">
@@ -61,16 +89,38 @@ const AboutUs = () => {
             transition={{ duration: 0.8 }}
             className="order-1 md:order-2"
           >
-            <div className="overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.14)]">
-              <img
-                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1350&q=80"
-                alt="Luxury hotel room"
-                className="h-[260px] w-full object-cover sm:h-[340px] md:h-[440px]"
-              />
+            <div className="relative overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.14)]">
+              <AnimatePresence mode="wait" initial={false}>
+                <Motion.img
+                  key={aboutImages[activeImageIndex].src}
+                  src={aboutImages[activeImageIndex].src}
+                  alt={aboutImages[activeImageIndex].alt}
+                  className="h-[260px] w-full object-cover sm:h-[340px] md:h-[440px]"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </AnimatePresence>
             </div>
-            <div className="mt-3 hidden justify-end gap-7 text-3xl text-[#9b7b45] md:flex">
-              <span aria-hidden="true">←</span>
-              <span aria-hidden="true">→</span>
+
+            <div className="mt-3 flex justify-center gap-6 text-3xl text-[#9b7b45] md:justify-end md:gap-7">
+              <button
+                type="button"
+                onClick={showPreviousImage}
+                aria-label="Show previous image"
+                className="transition-colors duration-300 hover:text-[#7f612f]"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={showNextImage}
+                aria-label="Show next image"
+                className="transition-colors duration-300 hover:text-[#7f612f]"
+              >
+                →
+              </button>
             </div>
           </Motion.div>
         </div>

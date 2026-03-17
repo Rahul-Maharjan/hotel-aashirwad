@@ -1,188 +1,237 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import room from "../../assets/suite_room.png";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import { motion as Motion } from "framer-motion";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import {
+  Bath,
+  BedDouble,
+  Briefcase,
+  CheckCircle2,
+  Coffee,
+  Lock,
+  Package,
+  ShieldCheck,
+  Shirt,
+  Thermometer,
+  Tv,
+  Wifi,
+  Wind,
+  Wine,
+} from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { useMemo, useState } from "react";
+
+import suiteRoom from "../../assets/suite_room.png";
+
+const amenityIcons = {
+  "LED TV With Channel": <Tv className="h-6 w-4 text-lime-800" />,
+  "Electric Kettle for Coffee/Tea": (
+    <Coffee className="h-6 w-4 text-lime-800" />
+  ),
+  "Hair Dryer": <Wind className="h-6 w-4 text-lime-800" />,
+  "High-Speed Wi-Fi": <Wifi className="h-6 w-4 text-lime-800" />,
+  "Do Not Disturb System": <Lock className="h-6 w-4 text-lime-800" />,
+  "Mini Bar": <Wine className="h-6 w-4 text-lime-800" />,
+  "Iron & Iron Board": <Shirt className="h-6 w-4 text-lime-800" />,
+  "Luxury Bathroom Amenities": <Bath className="h-6 w-4 text-lime-800" />,
+  "Safe Shield Bathroom Fixture": (
+    <ShieldCheck className="h-6 w-4 text-lime-800" />
+  ),
+  "Two Twin Beds": <BedDouble className="h-6 w-4 text-lime-800" />,
+  "Work Desk": <Briefcase className="h-6 w-4 text-lime-800" />,
+  "Air Conditioning": <Thermometer className="h-6 w-4 text-lime-800" />,
+  "Smart TV": <Tv className="h-6 w-4 text-lime-800" />,
+  "Mini Fridge": <Package className="h-6 w-4 text-lime-800" />,
+};
 
 const rooms = [
   {
-    id: 1,
-    image: room,
-    title: "Twin Room",
-    description:
-      "Experience comfort in our spacious Twin Room featuring two plush beds, breathtaking views of Pokhara’s lakeside, and modern finishes. Ideal for friends or colleagues traveling together, with cozy lighting to set the perfect ambiance after a day of adventure.",
+    id: "r1",
+    name: "Deluxe Room",
+    type: "Single Bed",
+    price: "2500",
+    description: "Elegant room with premium interiors and stunning views.",
+    amenities: [
+      "LED TV With Channel",
+      "Electric Kettle for Coffee/Tea",
+      "Hair Dryer",
+      "High-Speed Wi-Fi",
+      "Do Not Disturb System",
+      "Mini Bar",
+      "Iron & Iron Board",
+      "Luxury Bathroom Amenities",
+    ],
+    images: [
+      suiteRoom,
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80",
+    ],
+    thumbnail:
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80",
   },
   {
-    id: 2,
-    image: room,
-    title: "Family Room",
-    description:
-      "Our Family Room offers a wide and welcoming space complete with a relaxing lounge area, mountain vistas through large windows, and an indoor play corner to keep your little ones entertained. ",
+    id: "r2",
+    name: "Twin Room",
+    type: "Twin Bed",
+    price: "2200",
+    description: "Spacious twin room ideal for friends or family stays.",
+    amenities: [
+      "Two Twin Beds",
+      "Work Desk",
+      "Air Conditioning",
+      "Smart TV",
+      "High-Speed Wi-Fi",
+      "Mini Fridge",
+      "Hair Dryer",
+      "Luxury Bathroom Amenities",
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1600&q=80",
+      suiteRoom,
+    ],
+    thumbnail:
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=900&q=80",
   },
   {
-    id: 3,
-    image: room,
-    title: "Suite Room",
-    description:
-      "Indulge in our premium Suite Room, designed for both relaxation and productivity. Featuring a private balcony, fully stocked minibar, king-size bed, and a dedicated workspace, it’s perfect for business travelers and luxury seekers alike.",
+    id: "r3",
+    name: "Suite Room",
+    type: "Premium Suite",
+    price: "4200",
+    description: "Designed for guests who want luxury, privacy, and comfort.",
+    amenities: [
+      "Mini Bar",
+      "Smart TV",
+      "Work Desk",
+      "High-Speed Wi-Fi",
+      "Air Conditioning",
+      "Luxury Bathroom Amenities",
+      "Do Not Disturb System",
+      "Safe Shield Bathroom Fixture",
+    ],
+    images: [
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1600&q=80",
+      suiteRoom,
+    ],
+    thumbnail:
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80",
   },
 ];
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.3,
-      duration: 0.8,
-      ease: "easeOut",
-    },
-  }),
-};
-
-const textFadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { delay: 0.6, duration: 1 } },
-};
-
 const Accomodation = () => {
-  const navigate = useNavigate();
+  const [activeRoomId, setActiveRoomId] = useState(rooms[0].id);
+
+  const activeRoom = useMemo(
+    () => rooms.find((room) => room.id === activeRoomId) || rooms[0],
+    [activeRoomId],
+  );
+
+  const amenities = activeRoom?.amenities || [];
+  const images = activeRoom?.images || [];
 
   return (
-    <section className="relative bg-gradient-to-br from-white via-blue-200 to-white py-24">
-      {/* Heading */}
-      <motion.div
-        className="text-center mb-20 px-6"
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-sm font-semibold text-[#1e2a54] tracking-widest uppercase">
-          Experience Luxury
-        </h2>
-        
-        <motion.h1
-          className="text-4xl md:text-5xl font-bold text-[#4792a0] mt-2 leading-snug relative inline-block cursor-pointer"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          whileHover={{ scale: 1.05 }}
-        >
-          Signature{" "}
-          <span className="text-blue-900 decoration-blue-400 decoration-4 underline-offset-8 transition-all duration-300 hover:decoration-blue-900">
-            Accommodation
-          </span>
-        </motion.h1>
-        <motion.p
-          className="mt-4 max-w-xl mx-auto text-gray-600 text-sm md:text-base"
-          variants={textFadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          Where comfort meets elegance, immerse yourself in rooms designed to impress.
-        </motion.p>
-      </motion.div>
+    <Motion.section
+      id="rooms"
+      className="relative min-h-screen bg-[#efefef]"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7 }}
+    >
+      <div className="flex h-full flex-col lg:flex-row">
+        <div className="flex w-full flex-col space-y-7 px-5 py-10 sm:px-8 md:py-8 lg:w-2/5 lg:px-12 lg:py-8">
+          <div className="text-left">
+            <h2 className="mt-2 text-xs font-medium uppercase tracking-[0.22em] text-[#6a6a6a] sm:text-sm">
+              Accomodations
+            </h2>
+            <span className="mt-3 inline-block h-[1px] w-14 bg-[#9b7b45] sm:w-20" />
+            <h1 className="mt-4 font-serif text-3xl uppercase tracking-[0.08em] text-[#0f1f47] sm:text-4xl lg:text-5xl">
+              Luxury Accommodation
+            </h1>
+          </div>
 
-      {/* Room Cards */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 space-y-20">
-        {rooms.map((room, index) => (
-          <motion.div
-            key={room.id}
-            custom={index}
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className={`flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16 ${
-              index % 2 === 1 ? "lg:flex-row-reverse" : ""
-            } rounded-3xl  duration-1000`}
+          <div className="flex flex-1 flex-col justify-center space-y-5">
+            {rooms.map((room) => (
+              <button
+                key={room.id}
+                type="button"
+                onClick={() => setActiveRoomId(room.id)}
+                className={`flex cursor-pointer items-start gap-3 border-l-4 p-3 text-left transition-all duration-300 sm:gap-4 sm:p-4 ${
+                  activeRoomId === room.id
+                    ? "border-[#0f1f47] bg-[#f7f5f1] shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                    : "border-transparent bg-white/90 hover:bg-white"
+                }`}
+              >
+                <img
+                  src={room.thumbnail}
+                  alt={`${room.name} Thumbnail`}
+                  className="h-24 w-28 object-cover sm:h-28 sm:w-40 md:h-32 md:w-48"
+                />
+                <div className="flex-1 space-y-2 py-1 sm:space-y-3 sm:py-4">
+                  <h3
+                    className={`font-serif text-xl uppercase tracking-[0.04em] sm:text-2xl md:text-[1.75rem] ${
+                      activeRoomId === room.id
+                        ? "text-[#0f1f47]"
+                        : "text-[#2d2d2d]"
+                    }`}
+                  >
+                    {room.name}
+                  </h3>
+                  <p className="text-sm font-semibold text-[#9b7b45] sm:text-base md:text-lg">
+                    Rs. {parseFloat(room.price).toFixed(2)} / night
+                  </p>
+                  <p className="line-clamp-2 text-xs text-[#4f4f4f] sm:text-sm">
+                    {room.description}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative h-[340px] w-full sm:h-[430px] md:h-[540px] lg:h-[760px] lg:w-3/5">
+          <Swiper
+            key={activeRoomId}
+            modules={[Navigation, Pagination, Autoplay]}
+            spaceBetween={0}
+            slidesPerView={1}
+            loop={true}
+            loopAdditionalSlides={3}
+            // navigation
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            className="h-full w-full"
           >
-            {/* Image Section */}
-            <motion.div
-              className="relative w-full lg:w-1/2 group overflow-hidden rounded-3xl shadow-xl"
-              whileHover={{ scale: 1.015 }}
-              transition={{ duration: 0.5 }}
-            >
-              <img
-                src={room.image}
-                alt={room.title}
-                className="w-full h-[280px] sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-40 transition duration-700" />
-            </motion.div>
+            {images.map((img, index) => (
+              <SwiperSlide key={`${activeRoomId}-${index}`}>
+                <img
+                  src={img}
+                  alt={activeRoom?.name}
+                  className="h-full w-full object-cover"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-            {/* Content Box */}
-            <motion.div
-              className="w-full lg:w-1/2 bg-white/90 backdrop-blur-lg border border-blue-100 p-10 rounded-3xl shadow-lg transition-all duration-500 hover:shadow-2xl relative overflow-hidden"
-              whileHover={{ y: -4 }}
-            >
-              {/* Glowing gradient shimmer ring */}
-              <div className="absolute -top-5 -right-5 w-36 h-36 bg-gradient-to-tr from-blue-500 to-pink-400 opacity-20 rounded-full blur-3xl animate-pulse" />
-              <motion.h3
-                className="text-2xl md:text-3xl font-bold text-gray-600 mb-6 cursor-default"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                viewport={{ once: true }}
-                whileHover={{ color: "#1e2a54", scale: 1.03 }}
+          <div className="absolute bottom-2 right-0 z-20 grid max-w-full grid-cols-4 gap-2 overflow-x-auto border border-[#d8d1c2] bg-[#f6f2ea] p-2 backdrop-blur-md sm:gap-4 sm:p-4">
+            {amenities.map((item, index) => (
+              <div
+                key={`${item}-${index}`}
+                className="flex items-center justify-center border-r border-[#d8d1c2] pr-2"
+                title={item}
               >
-                {room.title}
-              </motion.h3>
-              <motion.p
-                className="text-sm md:text-base text-gray-600 text-justify leading-relaxed"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 1 }}
-                viewport={{ once: true }}
-              >
-                {room.description}
-              </motion.p>
-              <div className="mt-8 flex flex-wrap gap-5">
-                <motion.a
-                  href={`/rooms#room-${room.id}`}
-                  className="px-6 py-3 bg-blue-600 text-white text-sm rounded-full shadow-md hover:bg-blue-700 transition relative overflow-hidden"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="relative z-10">See More</span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-blue-700 opacity-0 group-hover:opacity-30 rounded-full transition duration-300"
-                  />
-                </motion.a>
-                <motion.button
-                  onClick={() => navigate(`/rooms#room-${room.id}`)}
-                  className="px-6 py-3 border border-gray-300 text-gray-800 text-sm rounded-full hover:bg-gray-100 transition relative overflow-hidden"
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Room Details
-                </motion.button>
+                {amenityIcons[item] || (
+                  <CheckCircle2 className="h-6 w-6 text-[#0f1f47] sm:h-7 sm:w-7" />
+                )}
               </div>
-            </motion.div>
-          </motion.div>
-        ))}
+            ))}
+          </div>
+        </div>
       </div>
-       {/* Animated Background Layer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-        className="absolute inset-0 -z-10 overflow-hidden"
-      >
-        {/* Floating Blur Elements */}
-        <motion.div
-          className="absolute w-[500px] h-[500px] bg-gradient-to-r from-blue-300 via-pink-300 to-yellow-200 opacity-20 blur-[120px] rounded-full top-[-100px] left-[-150px] animate-spin-slow"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute w-[400px] h-[400px] bg-gradient-to-br from-[#1e2a54] via-purple-500 to-transparent opacity-10 blur-[100px] rounded-full bottom-[-50px] right-[-100px]"
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
-        />
-      </motion.div>
-    </section>
+    </Motion.section>
   );
 };
 

@@ -45,3 +45,34 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.differences-swiper {
+  overflow: visible;
+}
+
+.differences-swiper .swiper-wrapper {
+  align-items: center;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.differences-swiper .swiper-slide {
+  opacity: 0.32;
+  transform: scale(0.86);
+  transition:
+    transform 0.95s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.differences-swiper .swiper-slide-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.differences-swiper .swiper-slide .differences-slide-overlay {
+  opacity: 0.58;
+  transition: opacity 0.9s ease;
+}
+
+.differences-swiper .swiper-slide-active .differences-slide-overlay {
+  opacity: 0.35;
+}

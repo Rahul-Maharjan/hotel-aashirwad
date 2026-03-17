@@ -1,84 +1,100 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import { motion } from "framer-motion";
-import { FaQuoteLeft, FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { motion as Motion } from "framer-motion";
+import {
+  FaQuoteLeft,
+  FaChevronLeft,
+  FaChevronRight,
+  FaFacebookF,
+  FaGoogle,
+  FaInstagram,
+} from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/navigation";
 
 const testimonials = [
   {
     name: "Dipson Pokhrel",
-    role: "Travel Blogger",
+    platform: "facebook",
     feedback:
       "Absolutely loved my stay at Hotel Aashirwad! The staff were incredibly kind and the view of Pokhara was breathtaking.",
-    avatar:
-      "https://media.licdn.com/dms/image/v2/D5635AQEoUqzFBRn5bA/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1729166813361?e=1753182000&v=beta&t=NFl_YSiZufoVl_5xOgZFArDg75diH4HGgR1aGq1fazY",
-    rating: 5,
   },
   {
     name: "Alish Bajracharya",
-    role: "Frontend Developer",
+    platform: "google",
     feedback:
       "The rooms were clean and elegant, food was delicious, and their 24/7 service exceeded expectations!",
-    avatar:
-      "https://media.licdn.com/dms/image/v2/D5603AQGJBOiMBQHzSg/profile-displayphoto-shrink_800_800/B56ZdEKnRmGQAc-/0/1749195324217?e=1758153600&v=beta&t=nNct8qUQvWG4a4Zpq8GzSQABSns_Sv6ZhanvfR91fyY",
-    rating: 5,
   },
   {
     name: "Luja Maharjan",
-    role: "Businessman",
+    platform: "instagram",
     feedback:
       "Perfect blend of comfort and professionalism. The concierge made my business trip totally hassle-free.",
-    avatar:
-      "https://media.licdn.com/dms/image/v2/D4E03AQHcQz1Jx1kAbw/profile-displayphoto-crop_800_800/B4EZd.nhYhGwAM-/0/1750175980669?e=1758153600&v=beta&t=OUNIVMm5jpKO5spqOwDREg7rEJbmypu8hhR5ar8RaVw",
-    rating: 4,
   },
   {
     name: "Angel Gurung",
-    role: "Foodie Traveler",
+    platform: "facebook",
     feedback:
       "The rooftop restaurant and the views were just insane. Loved the Nepali thali and their special drinks!",
-    avatar: "https://randomuser.me/api/portraits/women/79.jpg",
-    rating: 5,
   },
   {
     name: "Sarin Shakya",
-    role: "Photographer",
+    platform: "google",
     feedback:
       "Clean rooms, peaceful location, and warm hospitality — my photography tour went smooth thanks to the team!",
-    avatar: "https://randomuser.me/api/portraits/men/12.jpg",
-    rating: 4,
   },
   {
     name: "Anne Thapa",
-    role: "Digital Nomad",
+    platform: "instagram",
     feedback:
       "Super fast Wi-Fi, great coffee, and a cozy room — made my remote work so productive!",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
-    rating: 5,
   },
 ];
 
+const platformMeta = {
+  facebook: {
+    label: "Facebook Review",
+    icon: FaFacebookF,
+    iconColor: "text-[#1877F2]",
+  },
+  google: {
+    label: "Google Review",
+    icon: FaGoogle,
+    iconColor: "text-[#DB4437]",
+  },
+  instagram: {
+    label: "Instagram Mention",
+    icon: FaInstagram,
+    iconColor: "text-[#C13584]",
+  },
+};
+
 const Testimonials = () => {
   return (
-    <section className="bg-[#f9fafb] py-20 relative">
-      <motion.div
-        className="text-center mb-16 px-4"
+    <section className="relative overflow-hidden bg-[#efefef] py-16 sm:py-20 lg:py-24">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#f7f5f1] to-transparent" />
+
+      <Motion.div
+        className="relative mb-12 px-4 text-center sm:mb-16"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true, amount: 0.4 }}
       >
-        <h2 className="text-4xl font-bold text-[#1e2a54] uppercase tracking-wide">
+        <p className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#6a6a6a]">
+          Guest Experience
+        </p>
+        <h2 className="font-serif text-3xl uppercase tracking-[0.14em] text-[#111111] sm:text-4xl">
           Voice of Satisfaction
         </h2>
-        <p className="mt-2 text-gray-600 max-w-xl mx-auto">
-          Hear what our happy guests say about their unforgettable experiences with us.
+        <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#404040] sm:text-base sm:leading-8">
+          Hear what our happy guests say about their unforgettable experiences
+          with us.
         </p>
-        <div className="w-24 h-1 bg-[#F59E0B] mx-auto mt-4 rounded"></div>
-      </motion.div>
+        <div className="mx-auto mt-4 h-[1px] w-20 bg-[#9b7b45]" />
+      </Motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 relative">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <Swiper
           modules={[Navigation, Autoplay]}
           slidesPerView={1}
@@ -100,45 +116,53 @@ const Testimonials = () => {
         >
           {testimonials.map((item, index) => (
             <SwiperSlide key={index}>
-              <motion.div
+              <Motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                viewport={{ once: true }}
-                className="h-full bg-white rounded-2xl shadow-md p-8 flex flex-col justify-between hover:shadow-xl transition-all duration-300"
+                transition={{ delay: 0.15 + index * 0.03, duration: 0.55 }}
+                viewport={{ once: true, amount: 0.3 }}
+                whileHover={{ y: -4 }}
+                className="group h-full border border-[#ddd6c8] bg-[#f7f5f1] p-7 shadow-[0_12px_26px_rgba(0,0,0,0.06)] transition-all duration-300"
               >
-                <FaQuoteLeft className="text-[#F59E0B] text-2xl opacity-20 mb-4" />
-                <p className="text-gray-700 italic leading-relaxed text-justify flex-grow">
+                <FaQuoteLeft className="mb-4 text-2xl text-[#9b7b45]/50" />
+                <p className="min-h-[132px] text-sm italic leading-7 text-[#4a4a4a] sm:text-base">
                   “{item.feedback}”
                 </p>
 
-                <div className="flex items-center gap-4 mt-6">
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-12 h-12 rounded-full border-2 border-[#1e2a54] object-cover"
-                  />
+                <div className="mt-6 flex items-center gap-4 border-t border-[#e3ddcf] pt-4">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d7c7a6] bg-white">
+                    {(() => {
+                      const meta =
+                        platformMeta[item.platform] || platformMeta.google;
+                      const PlatformIcon = meta.icon;
+
+                      return (
+                        <PlatformIcon className={`text-lg ${meta.iconColor}`} />
+                      );
+                    })()}
+                  </div>
                   <div>
-                    <h4 className="font-semibold text-[#1e2a54]">{item.name}</h4>
-                    <p className="text-sm text-gray-500">{item.role}</p>
-                    <div className="flex mt-1 text-[#F59E0B]">
-                      {[...Array(item.rating)].map((_, i) => (
-                        <FaStar key={i} className="text-sm" />
-                      ))}
-                    </div>
+                    <h4 className="font-serif text-lg uppercase tracking-[0.04em] text-[#0f1f47]">
+                      {item.name}
+                    </h4>
+                    <p className="text-xs font-medium uppercase tracking-[0.12em] text-[#6a6a6a]">
+                      {
+                        (platformMeta[item.platform] || platformMeta.google)
+                          .label
+                      }
+                    </p>
                   </div>
                 </div>
-              </motion.div>
+              </Motion.div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Navigation Arrows */}
-        <div className="testimonial-prev absolute -left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white border shadow-md p-2 rounded-full cursor-pointer hover:scale-110 transition">
-          <FaChevronLeft className="text-[#1e2a54]" />
+        <div className="testimonial-prev absolute -left-2 top-1/2 z-20 hidden -translate-y-1/2 cursor-pointer rounded-full border border-[#d7c7a6] bg-white p-2 shadow-md transition hover:scale-110 lg:block">
+          <FaChevronLeft className="text-[#0f1f47]" />
         </div>
-        <div className="testimonial-next absolute -right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white border shadow-md p-2 rounded-full cursor-pointer hover:scale-110 transition">
-          <FaChevronRight className="text-[#1e2a54]" />
+        <div className="testimonial-next absolute -right-2 top-1/2 z-20 hidden -translate-y-1/2 cursor-pointer rounded-full border border-[#d7c7a6] bg-white p-2 shadow-md transition hover:scale-110 lg:block">
+          <FaChevronRight className="text-[#0f1f47]" />
         </div>
       </div>
     </section>

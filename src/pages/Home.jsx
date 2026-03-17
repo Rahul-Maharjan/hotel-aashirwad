@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar";
 import HomeHero from "../components/Home/HomeHero";
 import AboutUs from "../components/Home/AboutUs";
+import Differences from "../components/Home/Differences";
+import ActivitiesSection from "../components/Home/Destination";
 import Accommodation from "../components/Home/Accomodation";
 import OurServices from "../components/Home/OurServices";
 import Testimonials from "../components/Home/Testimonials";
@@ -13,10 +15,12 @@ const Home = () => {
       <Navbar />
       <HomeHero />
       <AboutUs />
+      <Differences />
+      <ActivitiesSection />
       <Accommodation />
       <OurServices />
-      <Testimonials />
       <Blog />
+      <Testimonials />
       <Footer />
     </div>
   );
