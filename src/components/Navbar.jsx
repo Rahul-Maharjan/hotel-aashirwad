@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { href, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaSearch, FaPhone, FaChevronRight } from "react-icons/fa";
 import logo from "../assets/logo.png";
 
@@ -9,21 +9,21 @@ const Navbar = () => {
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   const menuItems = [
-    { label: "Our Hotel", href: "/about" },
+    { label: "Our Hotel", href: "#" },
     {
       label: "Accomodations",
       submenu: [
-        { label: "Twin Room", href: "/twin-room" },
-        { label: "Family Room", href: "/family-room" },
-        { label: "Suite Room", href: "/rooms/suite" },
+        { label: "Twin Room", href: "#" },
+        { label: "Family Room", href: "#" },
+        { label: "Suite Room", href: "#" },
       ],
     },
-    { label: "Experiences", href: "/experiences" },
+    { label: "Experiences", href: "#" },
     {
-      label: "Activities", href: "/activities"
+      label: "Activities", href: "#"
     },
-    { label: "Contact", href: "/contact" },
-    { label: "Blog", href: "/blogs" },
+    { label: "Contact", href: "#" },
+    { label: "Blog", href: "#" },
   ];
 
   useEffect(() => {

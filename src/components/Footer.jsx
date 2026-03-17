@@ -16,10 +16,10 @@ import makemytripLogo from "../assets/ota/makemytrip.png";
 
 const quickLinks = [
   { name: "Home", path: "/" },
-  { name: "About Us", path: "/about" },
-  { name: "Blogs", path: "/blogs" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Reviews", path: "/reviews" },
+  { name: "About Us", path: "#" },
+  { name: "Blogs", path: "#" },
+  { name: "Gallery", path: "#" },
+  { name: "Reviews", path: "#" },
 ];
 
 export default function Footer() {
