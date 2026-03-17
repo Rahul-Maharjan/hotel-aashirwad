@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import AboutHero from "../components/About Us/AboutHero";
 import WhoWeAre from "../components/About Us/WhoWeAre";
 import WhyChooseUs from "../components/About Us/WhyChooseUs";
-import Blog from "../components/Home/Blog";
 import MissionVision from "../components/About Us/MissionVision";
 import MeetOurTeam from "../components/About Us/MeetOurTeam";
 import Guest from "../components/About Us/Guest";
@@ -21,7 +20,7 @@ const About = () => {
       <MeetOurTeam />
       <Guest />
       <Sustainability />
-      <Blog />
+    
       <Footer />
     </div>
   );
