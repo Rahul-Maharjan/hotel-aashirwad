@@ -1,116 +1,133 @@
-import { useEffect, useRef } from "react";
+import { motion as Motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowRight, Calendar, User, Clock } from "lucide-react";
+import { blogData } from "../../data/blogData";
 
-import blog1 from "../../assets/blog/blog1.jpg";
-import blog2 from "../../assets/blog/blog2.jpg";
-import blog3 from "../../assets/blog/blog3.jpg";
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
 
-const blogs = [
-  {
-    id: 1,
-    image: blog1,
-    category: "Travel",
-    title: "Best Places To Visit In Pokhara",
-    desc: "Discover beautiful destinations around Pokhara including lakes and mountains.",
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 20 }
   },
-  {
-    id: 2,
-    image: blog2,
-    category: "Hotel Life",
-    title: "Experience Comfort At Hotel Aashirwad",
-    desc: "Enjoy luxury rooms and warm hospitality during your stay.",
-  },
-  {
-    id: 3,
-    image: blog3,
-    category: "Local Guide",
-    title: "Top Activities To Do In Pokhara",
-    desc: "Explore exciting adventures like boating, hiking and paragliding.",
-  },
-];
+};
 
 const Blog = () => {
-  const cardsRef = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("opacity-0", "translate-y-10");
-
-            entry.target.classList.add("opacity-100", "translate-y-0");
-
-            // Reveal each card once and stop observing to keep scrolling smooth.
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-    );
-
-    cardsRef.current.forEach((card) => {
-      if (card) observer.observe(card);
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  // Grab the 3 most recent posts
+  const recentBlogs = blogData.slice(0, 3);
 
   return (
-    <section className="bg-[#efefef] py-16 sm:py-20 lg:py-24">
+    <section className="bg-white py-16 sm:py-20 lg:py-24 border-t border-[#e5e5e5]">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+        
         {/* HEADER */}
         <div className="mb-12 text-center sm:mb-16">
-          <h2 className="font-serif text-3xl uppercase tracking-[0.14em] text-[#111111] sm:text-4xl">
-            Blog
-          </h2>
+          <Motion.h2 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.5 }}
+            className="font-serif text-3xl uppercase tracking-[0.14em] text-[#0f1f47] sm:text-4xl"
+          >
+            Our Journal
+          </Motion.h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-[#4a4a4a]">
+          <Motion.p 
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mx-auto mt-4 max-w-xl text-[#4f4f4f] leading-relaxed"
+          >
             Discover travel stories, local experiences and useful tips to make
             your stay in Pokhara unforgettable.
-          </p>
+          </Motion.p>
 
-          <button className="mt-6 text-amber-600 hover:underline">
-            Read more →
-          </button>
+          <Motion.div
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link to="/blog" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors">
+              View All Posts <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Motion.div>
         </div>
 
         {/* BLOG GRID */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {blogs.map((blog, index) => (
-            <div
+        <Motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10"
+        >
+          {recentBlogs.map((blog) => (
+            <Motion.div
               key={blog.id}
-              ref={(el) => (cardsRef.current[index] = el)}
-              style={{ transitionDelay: `${index * 150}ms` }}
-              className="
-                text-center group
-                opacity-0 translate-y-10
-                transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform
-              "
+              variants={itemVariants}
+              className="group flex flex-col items-center bg-[#f7f5f1] border border-transparent hover:border-[#e5e5e5] transition-colors duration-300 pb-8"
             >
-              <div className="overflow-hidden">
+              <div className="w-full h-[340px] overflow-hidden mb-6 relative bg-gray-200">
                 <img
                   src={blog.image}
                   alt={blog.title}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[420px] object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
 
-              <p className="text-sm uppercase text-gray-500 mt-6">
-                {blog.category}
-              </p>
+              <div className="px-6 flex flex-col items-center text-center flex-grow">
+                {/* Meta details using proper icons */}
+                <div className="flex flex-wrap items-center justify-center gap-4 text-[10px] sm:text-xs tracking-wider uppercase text-[#6a6a6a] font-semibold mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5 text-[#9b7b45]" />
+                    <span>
+                      {new Date(blog.date).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-[#9b7b45]" />
+                    <span>{blog.readTime}</span>
+                  </div>
+                </div>
 
-              <h3 className="text-xl font-semibold mt-3">{blog.title}</h3>
+                <p className="text-xs uppercase tracking-[0.2em] font-semibold text-[#9b7b45] mb-3">
+                  {blog.category}
+                </p>
 
-              <p className="text-gray-600 mt-4 px-6">{blog.desc}</p>
+                <h3 className="font-serif text-xl tracking-wide text-[#0f1f47] group-hover:text-[#9b7b45] transition-colors mb-4 line-clamp-2">
+                  {blog.title}
+                </h3>
 
-              <button className="mt-6 text-amber-600 hover:underline">
-                Read more →
-              </button>
-            </div>
+                <p className="text-sm text-[#4f4f4f] leading-relaxed mb-6 line-clamp-3">
+                  {blog.excerpt}
+                </p>
+
+                <Link to={`/blog/${blog.id}`} className="mt-auto items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors inline-flex">
+                  Read Article <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </Motion.div>
           ))}
-        </div>
+        </Motion.div>
+        
       </div>
     </section>
   );

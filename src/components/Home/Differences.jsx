@@ -44,7 +44,7 @@ const Differences = () => {
   const [swiperInstance, setSwiperInstance] = useState(null);
 
   return (
-    <section className="bg-[#efefef] py-16 sm:py-20">
+    <section className="bg-[#f7f5f1] py-16 sm:py-20">
       <div className="w-full px-0">
         <Motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -82,7 +82,6 @@ const Differences = () => {
               onSwiper={setSwiperInstance}
               centeredSlides
               loop={true}
-              loopAdditionalSlides={4}
               speed={1050}
               grabCursor
               navigation={{
@@ -112,8 +111,8 @@ const Differences = () => {
               }}
               className="differences-swiper"
             >
-              {differencesSlides.map((slide) => (
-                <SwiperSlide key={slide.id}>
+              {[...differencesSlides, ...differencesSlides].map((slide, index) => (
+                <SwiperSlide key={`${slide.id}-${index}`}>
                   <div className="differences-slide-card relative h-[320px] overflow-hidden sm:h-[420px] lg:h-[520px]">
                     <img
                       src={slide.image}
