@@ -8,23 +8,31 @@ const CommonHeader = ({
   imageAlt = "Header",
 }) => {
   return (
-    <div className="relative">
+    <div className="relative h-[45vh] min-h-[320px] md:min-h-[400px] w-full overflow-hidden">
       {/* Background Image */}
       <img
         src={image}
         alt={imageAlt}
-        className="w-full h-[320px] md:h-[380px] object-cover"
+        className="absolute inset-0 h-full w-full object-cover scale-105"
       />
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-4 py-4 mt-4">
-        <h1 className="text-3xl md:text-5xl text-white font-bold mb-4 mt-4 ">
-          {title}
-        </h1>
+      {/* Minimal Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/50" />
 
-        <p className="max-w-xl text-sm md:text-base  text-gray-200 leading-relaxed">
-          {description}
-        </p>
+      {/* Content Container */}
+      <div className="absolute inset-0 flex items-end justify-center pb-16 md:pb-20 px-6">
+        <div className="w-full max-w-3xl space-y-4">
+          {/* Minimalist accent line */}
+          <div className="w-12 h-px bg-white/80 mx-auto" />
+          
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-light tracking-tight text-center">
+            {title}
+          </h1>
+
+          <p className="text-sm sm:text-base md:text-lg text-white/85 font-light tracking-wide text-center max-w-2xl mx-auto leading-relaxed">
+            {description}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -7,32 +7,55 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState(null);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const menuItems = [
-    { label: "Our Hotel", href: "#" },
+    { label: "Our Hotel", href: "/" },
     {
-      label: "Accomodations",
+      label: "Accommodations",
       submenu: [
-        { label: "Twin Room", href: "#" },
-        { label: "Family Room", href: "#" },
-        { label: "Suite Room", href: "#" },
+        { label: "Suite Room", href: "/rooms/suite" },
+        { label: "Deluxe Room", href: "/rooms/deluxe" },
+        { label: "Superior Deluxe", href: "/rooms/superior-deluxe" },
+        { label: "Family Room", href: "/rooms/family" },
       ],
     },
     { label: "Experiences", href: "#" },
-    {
-      label: "Activities", href: "#"
-    },
-    { label: "Contact", href: "#" },
-    { label: "Blog", href: "#" },
+    { label: "Activities", href: "#" },
+    { label: "Contact", href: "/contact" },
+    { label: "Blog", href: "/blog" },
   ];
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          setScrolled(currentScrollY > 50);
+
+          // Determine scroll direction
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down & past 100px threshold
+            setIsVisible(false);
+          } else if (currentScrollY < lastScrollY) {
+            // Scrolling up
+            setIsVisible(true);
+          }
+          
+          setLastScrollY(currentScrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -58,11 +81,11 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-500 ease-in-out ${
           isScrolledOrOpen
-            ? "bg-white/95 color-[#1e2a54] backdrop-blur-sm"
+            ? "bg-white/95 color-[#1e2a54] backdrop-blur-sm shadow-sm"
             : "bg-transparent backdrop-blur-lg"
-        }`}
+        } ${isVisible || isOpen ? "translate-y-0" : "-translate-y-full"}`}
       >
         <nav className="max-w-full mx-auto px-4 sm:px-8 lg:px-12 py-8 ">
           <div className="flex justify-between items-center">

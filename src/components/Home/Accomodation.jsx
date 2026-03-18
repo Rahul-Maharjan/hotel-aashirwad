@@ -1,237 +1,101 @@
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-import { motion as Motion } from "framer-motion";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import {
-  Bath,
-  BedDouble,
-  Briefcase,
-  CheckCircle2,
-  Coffee,
-  Lock,
-  Package,
-  ShieldCheck,
-  Shirt,
-  Thermometer,
-  Tv,
-  Wifi,
-  Wind,
-  Wine,
-} from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useMemo, useState } from "react";
-
-import suiteRoom from "../../assets/suite_room.png";
-
-const amenityIcons = {
-  "LED TV With Channel": <Tv className="h-6 w-4 text-lime-800" />,
-  "Electric Kettle for Coffee/Tea": (
-    <Coffee className="h-6 w-4 text-lime-800" />
-  ),
-  "Hair Dryer": <Wind className="h-6 w-4 text-lime-800" />,
-  "High-Speed Wi-Fi": <Wifi className="h-6 w-4 text-lime-800" />,
-  "Do Not Disturb System": <Lock className="h-6 w-4 text-lime-800" />,
-  "Mini Bar": <Wine className="h-6 w-4 text-lime-800" />,
-  "Iron & Iron Board": <Shirt className="h-6 w-4 text-lime-800" />,
-  "Luxury Bathroom Amenities": <Bath className="h-6 w-4 text-lime-800" />,
-  "Safe Shield Bathroom Fixture": (
-    <ShieldCheck className="h-6 w-4 text-lime-800" />
-  ),
-  "Two Twin Beds": <BedDouble className="h-6 w-4 text-lime-800" />,
-  "Work Desk": <Briefcase className="h-6 w-4 text-lime-800" />,
-  "Air Conditioning": <Thermometer className="h-6 w-4 text-lime-800" />,
-  "Smart TV": <Tv className="h-6 w-4 text-lime-800" />,
-  "Mini Fridge": <Package className="h-6 w-4 text-lime-800" />,
-};
-
-const rooms = [
-  {
-    id: "r1",
-    name: "Deluxe Room",
-    type: "Single Bed",
-    price: "2500",
-    description: "Elegant room with premium interiors and stunning views.",
-    amenities: [
-      "LED TV With Channel",
-      "Electric Kettle for Coffee/Tea",
-      "Hair Dryer",
-      "High-Speed Wi-Fi",
-      "Do Not Disturb System",
-      "Mini Bar",
-      "Iron & Iron Board",
-      "Luxury Bathroom Amenities",
-    ],
-    images: [
-      suiteRoom,
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80",
-    ],
-    thumbnail:
-      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: "r2",
-    name: "Twin Room",
-    type: "Twin Bed",
-    price: "2200",
-    description: "Spacious twin room ideal for friends or family stays.",
-    amenities: [
-      "Two Twin Beds",
-      "Work Desk",
-      "Air Conditioning",
-      "Smart TV",
-      "High-Speed Wi-Fi",
-      "Mini Fridge",
-      "Hair Dryer",
-      "Luxury Bathroom Amenities",
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1600&q=80",
-      suiteRoom,
-    ],
-    thumbnail:
-      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: "r3",
-    name: "Suite Room",
-    type: "Premium Suite",
-    price: "4200",
-    description: "Designed for guests who want luxury, privacy, and comfort.",
-    amenities: [
-      "Mini Bar",
-      "Smart TV",
-      "Work Desk",
-      "High-Speed Wi-Fi",
-      "Air Conditioning",
-      "Luxury Bathroom Amenities",
-      "Do Not Disturb System",
-      "Safe Shield Bathroom Fixture",
-    ],
-    images: [
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80",
-      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1600&q=80",
-      suiteRoom,
-    ],
-    thumbnail:
-      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80",
-  },
-];
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { motion as Motion, AnimatePresence } from "framer-motion";
+import { roomData } from "../../data/roomData";
+import { ArrowRight } from "lucide-react";
 
 const Accomodation = () => {
-  const [activeRoomId, setActiveRoomId] = useState(rooms[0].id);
+  const [activeRoomId, setActiveRoomId] = useState(roomData[0].id);
 
   const activeRoom = useMemo(
-    () => rooms.find((room) => room.id === activeRoomId) || rooms[0],
-    [activeRoomId],
+    () => roomData.find((room) => room.id === activeRoomId) || roomData[0],
+    [activeRoomId]
   );
 
-  const amenities = activeRoom?.amenities || [];
-  const images = activeRoom?.images || [];
-
   return (
-    <Motion.section
-      id="rooms"
-      className="relative min-h-screen bg-[#efefef]"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.7 }}
-    >
-      <div className="flex h-full flex-col lg:flex-row">
-        <div className="flex w-full flex-col space-y-7 px-5 py-10 sm:px-8 md:py-8 lg:w-2/5 lg:px-12 lg:py-8">
-          <div className="text-left">
-            <h2 className="mt-2 text-xs font-medium uppercase tracking-[0.22em] text-[#6a6a6a] sm:text-sm">
-              Accomodations
+    <section id="rooms" className="relative bg-white py-20 lg:py-32">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+        
+        {/* Left Side: Text and Navigation */}
+        <div className="w-full lg:w-5/12 flex flex-col justify-center">
+          <div className="mb-12">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[#9b7b45] mb-4">
+              Accommodations
             </h2>
-            <span className="mt-3 inline-block h-[1px] w-14 bg-[#9b7b45] sm:w-20" />
-            <h1 className="mt-4 font-serif text-3xl uppercase tracking-[0.08em] text-[#0f1f47] sm:text-4xl lg:text-5xl">
-              Luxury Accommodation
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#0f1f47] leading-tight mb-6">
+              Rest <br className="hidden lg:block"/>In Luxury
             </h1>
+            <p className="text-[#4f4f4f] leading-relaxed max-w-md">
+              Experience unparalleled comfort and style. Every room is designed to provide a perfect sanctuary during your stay in Pokhara.
+            </p>
           </div>
 
-          <div className="flex flex-1 flex-col justify-center space-y-5">
-            {rooms.map((room) => (
-              <button
-                key={room.id}
-                type="button"
-                onClick={() => setActiveRoomId(room.id)}
-                className={`flex cursor-pointer items-start gap-3 border-l-4 p-3 text-left transition-all duration-300 sm:gap-4 sm:p-4 ${
-                  activeRoomId === room.id
-                    ? "border-[#0f1f47] bg-[#f7f5f1] shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
-                    : "border-transparent bg-white/90 hover:bg-white"
-                }`}
-              >
-                <img
-                  src={room.thumbnail}
-                  alt={`${room.name} Thumbnail`}
-                  className="h-24 w-28 object-cover sm:h-28 sm:w-40 md:h-32 md:w-48"
-                />
-                <div className="flex-1 space-y-2 py-1 sm:space-y-3 sm:py-4">
-                  <h3
-                    className={`font-serif text-xl uppercase tracking-[0.04em] sm:text-2xl md:text-[1.75rem] ${
-                      activeRoomId === room.id
-                        ? "text-[#0f1f47]"
-                        : "text-[#2d2d2d]"
-                    }`}
-                  >
-                    {room.name}
-                  </h3>
-                  <p className="text-sm font-semibold text-[#9b7b45] sm:text-base md:text-lg">
-                    Rs. {parseFloat(room.price).toFixed(2)} / night
-                  </p>
-                  <p className="line-clamp-2 text-xs text-[#4f4f4f] sm:text-sm">
-                    {room.description}
-                  </p>
+          <div className="flex flex-col space-y-2">
+            {roomData.map((room) => {
+              const isActive = activeRoomId === room.id;
+              
+              return (
+                <div 
+                  key={room.id}
+                  onMouseEnter={() => setActiveRoomId(room.id)}
+                  className={`group py-4 border-b border-[#e5e5e5] cursor-pointer transition-colors duration-300 ${
+                    isActive ? "border-[#0f1f47]" : "hover:border-[#9b7b45]"
+                  }`}
+                >
+                  <div className="flex justify-between items-end">
+                    <div>
+                      <h3 className={`font-serif text-2xl tracking-wide transition-colors duration-300 ${
+                        isActive ? "text-[#0f1f47]" : "text-[#888888] group-hover:text-[#2d2d2d]"
+                      }`}>
+                        {room.name}
+                      </h3>
+                      
+                      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                        isActive ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
+                      }`}>
+                        <p className="text-[#9b7b45] text-sm font-semibold tracking-wider uppercase mb-2">
+                          {room.details.price} / Night
+                        </p>
+                        <p className="text-sm text-[#6a6a6a] line-clamp-2 pr-8">
+                          {room.description}
+                        </p>
+                        <Link
+                          to={`/rooms/${room.id}`}
+                          className="inline-flex items-center gap-2 mt-4 text-xs font-bold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors"
+                        >
+                          Explore Room <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </button>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        <div className="relative h-[340px] w-full sm:h-[430px] md:h-[540px] lg:h-[760px] lg:w-3/5">
-          <Swiper
-            key={activeRoomId}
-            modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={0}
-            slidesPerView={1}
-            loop={true}
-            loopAdditionalSlides={3}
-            // navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
-            className="h-full w-full"
-          >
-            {images.map((img, index) => (
-              <SwiperSlide key={`${activeRoomId}-${index}`}>
-                <img
-                  src={img}
-                  alt={activeRoom?.name}
-                  className="h-full w-full object-cover"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          <div className="absolute bottom-2 right-0 z-20 grid max-w-full grid-cols-4 gap-2 overflow-x-auto border border-[#d8d1c2] bg-[#f6f2ea] p-2 backdrop-blur-md sm:gap-4 sm:p-4">
-            {amenities.map((item, index) => (
-              <div
-                key={`${item}-${index}`}
-                className="flex items-center justify-center border-r border-[#d8d1c2] pr-2"
-                title={item}
-              >
-                {amenityIcons[item] || (
-                  <CheckCircle2 className="h-6 w-6 text-[#0f1f47] sm:h-7 sm:w-7" />
-                )}
-              </div>
-            ))}
+        {/* Right Side: Image Display */}
+        <div className="w-full lg:w-7/12 h-[500px] lg:h-[700px] relative overflow-hidden bg-gray-100 shadow-xl">
+          <AnimatePresence mode="wait">
+            <Motion.img
+              key={activeRoom.id}
+              src={activeRoom.image}
+              alt={activeRoom.name}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </AnimatePresence>
+          
+          <div className="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47]">
+            {activeRoom.details.sqrFt}
           </div>
         </div>
+
       </div>
-    </Motion.section>
+    </section>
   );
 };
 

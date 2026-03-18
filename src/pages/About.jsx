@@ -1,5 +1,3 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import AboutHero from "../components/About Us/AboutHero";
 import WhoWeAre from "../components/About Us/WhoWeAre";
 import WhyChooseUs from "../components/About Us/WhyChooseUs";
@@ -11,7 +9,6 @@ import Sustainability from "../components/About Us/Sustainability";
 const About = () => {
   return (
     <div className="relative">
-      <Navbar />
       <AboutHero />
       <WhoWeAre />
 
@@ -20,8 +17,6 @@ const About = () => {
       <MeetOurTeam />
       <Guest />
       <Sustainability />
-    
-      <Footer />
     </div>
   );
 };
