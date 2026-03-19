@@ -10,11 +10,14 @@ const CommonHeader = ({
   return (
     <div className="relative h-[45vh] min-h-[320px] md:min-h-[400px] w-full overflow-hidden">
       {/* Background Image */}
-      <img
-        src={image}
-        alt={imageAlt}
-        className="absolute inset-0 h-full w-full object-cover scale-105"
-      />
+      <div className="absolute inset-0">
+        <img
+          src={image}
+          alt={imageAlt}
+          className="h-full w-full object-cover scale-105"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
       {/* Minimal Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/30 to-black/50" />
@@ -24,7 +27,7 @@ const CommonHeader = ({
         <div className="w-full max-w-3xl space-y-4">
           {/* Minimalist accent line */}
           <div className="w-12 h-px bg-white/80 mx-auto" />
-          
+
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white font-light tracking-tight text-center">
             {title}
           </h1>

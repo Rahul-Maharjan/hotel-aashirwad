@@ -21,10 +21,10 @@ const Navbar = () => {
         { label: "Family Room", href: "/rooms/family" },
       ],
     },
-    { label: "Experiences", href: "#" },
-    { label: "Activities", href: "#" },
-    { label: "Contact", href: "/contact" },
+    { label: "Experiences", href: "/experiences" },
+    { label: "Activities", href: "/activities" },
     { label: "Blog", href: "/blog" },
+    { label: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {

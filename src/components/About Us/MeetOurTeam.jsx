@@ -1,77 +1,85 @@
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const teamMembers = [
   {
     name: "Ramesh Karki",
     role: "General Manager",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Sujata Thapa",
-    role: "Head Chef",
-    image: "https://randomuser.me/api/portraits/women/44.jpg",
+    role: "Executive Chef",
+    image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Sagar Sharma",
-    role: "Front Desk Supervisor",
-    image: "https://randomuser.me/api/portraits/men/68.jpg",
+    role: "Head of Guest Relations",
+    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Anjali Kunwar",
-    role: "Housekeeping Lead",
-    image: "https://randomuser.me/api/portraits/women/21.jpg",
+    role: "Spa & Wellness Director",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
 const MeetOurTeam = () => {
-  return (
-    <section className="relative bg-white py-24 px-6 sm:px-12 overflow-hidden">
-      {/* Light blur gradients */}
-      <div className="absolute -top-20 left-0 w-60 h-60 bg-[#1e2a54] opacity-10 blur-3xl animate-pulse" />
-      <div className="absolute -bottom-16 right-0 w-72 h-72 bg-[#F59E0B] opacity-10 blur-3xl animate-ping" />
+    return (
+        <section className="py-24 md:py-32 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <motion.div 
+                    className="flex flex-col md:flex-row items-end justify-between mb-20 gap-8"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                >
+                    <div className="max-w-2xl">
+                        <div className="w-16 h-px bg-[#0f1f47] mb-8"></div>
+                        <h2 className="text-3xl md:text-5xl font-serif text-[#0f1f47] uppercase tracking-wider">
+                            The Artisans of <br />
+                            <span className="text-[#9b7b45] italic normal-case font-serif tracking-normal">Hospitality</span>
+                        </h2>
+                    </div>
+                    <p className="text-[#6a6a6a] max-w-md text-sm uppercase tracking-wider leading-relaxed md:text-right">
+                        Behind every flawless stay is a team of dedicated professionals who elevate service into an art form.
+                    </p>
+                </motion.div>
 
-      <motion.div
-        className="text-center mb-16"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-4xl font-bold text-[#1e2a54] uppercase tracking-wide">
-          Meet Our Team
-        </h2>
-        <p className="mt-3 text-gray-600 text-lg max-w-2xl mx-auto">
-          Passionate professionals dedicated to making your stay exceptional.
-        </p>
-        <div className="w-24 h-1 bg-[#F59E0B] mx-auto mt-4 rounded" />
-      </motion.div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                    {teamMembers.map((member, index) => (
+                        <motion.div
+                            key={index}
+                            className="group"
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.15 }}
+                            viewport={{ once: true }}
+                        >
+                            <div className="w-full h-[400px] overflow-hidden mb-6">
+                                <img
+                                    src={member.image}
+                                    alt={member.name}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                                />
+                            </div>
+                            <div className="text-center">
+                                <h4 className="text-xl font-serif text-[#0f1f47] uppercase tracking-wide mb-2 transition-colors duration-300">
+                                    {member.name}
+                                </h4>
+                                <p className="text-xs text-[#9b7b45] uppercase tracking-widest font-semibold">
+                                    {member.role}
+                                </p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
 
-      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto px-6 md:px-10">
-        {teamMembers.map((member, index) => (
-          <motion.div
-            key={index}
-            className="bg-[#f9fafb] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 group"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
-            viewport={{ once: true }}
-          >
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-            <div className="p-6 text-center">
-              <h4 className="text-lg font-bold text-[#1e2a54] group-hover:text-[#F59E0B] transition-colors duration-300">
-                {member.name}
-              </h4>
-              <p className="text-sm text-gray-500 mt-1">{member.role}</p>
             </div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default MeetOurTeam;

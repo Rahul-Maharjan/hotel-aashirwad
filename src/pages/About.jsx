@@ -1,22 +1,30 @@
-import AboutHero from "../components/About Us/AboutHero";
-import WhoWeAre from "../components/About Us/WhoWeAre";
+import React, { useEffect } from 'react';
+import CommonHeader from "../components/CommonHeader";
+import Img from "../assets/Homehero2.webp";
+import HotelIntro from "../components/About Us/HotelIntro";
 import WhyChooseUs from "../components/About Us/WhyChooseUs";
-import MissionVision from "../components/About Us/MissionVision";
+import HotelServices from "../components/About Us/HotelServices";
 import MeetOurTeam from "../components/About Us/MeetOurTeam";
-import Guest from "../components/About Us/Guest";
-import Sustainability from "../components/About Us/Sustainability";
+import Testimonials from "../components/Home/Testimonials";
 
 const About = () => {
-  return (
-    <div className="relative">
-      <AboutHero />
-      <WhoWeAre />
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-      <MissionVision />
+  return (
+    <div className="relative bg-white">
+      <CommonHeader
+          title="ABOUT US"
+          description="Discover the passion, heritage, and people behind Pokhara's premier luxury destination. Welcome to Hotel Aashirwad."
+          image={Img}
+          imageAlt="About Hotel Aashirwad"
+      />
+      <HotelIntro />
       <WhyChooseUs />
+      <HotelServices />
       <MeetOurTeam />
-      <Guest />
-      <Sustainability />
+      <Testimonials />
     </div>
   );
 };

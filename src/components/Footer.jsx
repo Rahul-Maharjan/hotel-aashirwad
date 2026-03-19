@@ -17,7 +17,8 @@ import makemytripLogo from "../assets/ota/makemytrip.png";
 const quickLinks = [
   { name: "Home", path: "/" },
   { name: "About Us", path: "#" },
-  { name: "Blogs", path: "#" },
+  { name: "Experiences", path: "/experiences" },
+  { name: "Blogs", path: "/blog" },
   { name: "Gallery", path: "#" },
   { name: "Reviews", path: "#" },
 ];
