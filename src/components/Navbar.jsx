@@ -12,6 +12,7 @@ const Navbar = () => {
 
   const menuItems = [
     { label: "Our Hotel", href: "/" },
+    { label: "About", href: "/about" },
     {
       label: "Accommodations",
       submenu: [
