@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { 
-    Users, Maximize, BedDouble, ArrowLeft, CheckCircle2, 
+import {
+    Users, Maximize, BedDouble, ArrowLeft, CheckCircle2,
     X, ChevronLeft, ChevronRight, Calendar, ArrowRight,
     Wifi, Tv, Wind, Coffee, Bath, ShieldCheck, Shirt, Thermometer,
     Package, Lock, Wine
@@ -28,7 +28,7 @@ const getAmenityIcon = (name) => {
 const SingleRoom = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
-    
+
     const room = roomData.find(r => r.id === slug);
     const relatedRooms = roomData.filter(r => r.id !== slug).slice(0, 3);
 
@@ -94,7 +94,7 @@ const SingleRoom = () => {
             />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-                
+
                 {/* Navigation / Breadcrumb */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-6 border-b border-[#e5e5e5]">
                     {/* Breadcrumbs */}
@@ -121,31 +121,31 @@ const SingleRoom = () => {
 
                         {/* Image Gallery */}
                         <section className="space-y-4">
-                            <div 
+                            <div
                                 className="w-full h-[400px] md:h-[500px] cursor-pointer group relative overflow-hidden"
                                 onClick={() => openLightbox(0)}
                             >
-                                <img 
-                                    src={room.images[0]} 
-                                    alt="Featured" 
+                                <img
+                                    src={room.images[0]}
+                                    alt="Featured"
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 />
                                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                     <Maximize className="text-white w-8 h-8" />
                                 </div>
                             </div>
-                            
+
                             {room.images.length > 1 && (
                                 <div className="grid grid-cols-3 gap-4">
                                     {room.images.slice(1, 4).map((img, idx) => (
-                                        <div 
-                                            key={idx + 1} 
+                                        <div
+                                            key={idx + 1}
                                             className="h-[100px] sm:h-[150px] cursor-pointer group relative overflow-hidden"
                                             onClick={() => openLightbox(idx + 1)}
                                         >
-                                            <img 
-                                                src={img} 
-                                                alt={`Thumbnail ${idx + 1}`} 
+                                            <img
+                                                src={img}
+                                                alt={`Thumbnail ${idx + 1}`}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                             />
                                             {/* If there are more than 4 images, show overlay on the last thumbnail */}
@@ -262,6 +262,7 @@ const SingleRoom = () => {
                     </div>
 
                     {/* Sidebar (Right) - Booking Widget */}
+                    {/* Booking Form Simulation */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-28 bg-[#f7f5f1] border border-[#e5e5e5] p-6 shadow-xl">
                             <div className="mb-6 pb-6 border-b border-[#d8d1c2]">
@@ -272,14 +273,13 @@ const SingleRoom = () => {
                                 </div>
                             </div>
 
-                            {/* Booking Form Simulation */}
                             <div className="space-y-4 mb-8">
                                 <div>
                                     <label className="block text-xs uppercase tracking-wider font-semibold text-[#0f1f47] mb-2">Check-In</label>
                                     <div className="relative">
                                         <Calendar className="absolute left-3 top-3 w-5 h-5 text-[#9b7b45]" />
-                                        <input 
-                                            type="date" 
+                                        <input
+                                            type="date"
                                             className="w-full bg-white border border-[#e5e5e5] pl-10 pr-4 py-3 text-[#2d2d2d] focus:outline-none focus:border-[#9b7b45]"
                                         />
                                     </div>
@@ -288,8 +288,8 @@ const SingleRoom = () => {
                                     <label className="block text-xs uppercase tracking-wider font-semibold text-[#0f1f47] mb-2">Check-Out</label>
                                     <div className="relative">
                                         <Calendar className="absolute left-3 top-3 w-5 h-5 text-[#9b7b45]" />
-                                        <input 
-                                            type="date" 
+                                        <input
+                                            type="date"
                                             className="w-full bg-white border border-[#e5e5e5] pl-10 pr-4 py-3 text-[#2d2d2d] focus:outline-none focus:border-[#9b7b45]"
                                         />
                                     </div>
@@ -326,15 +326,15 @@ const SingleRoom = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {relatedRooms.map(r => (
-                            <Link 
-                                to={`/rooms/${r.id}`} 
+                            <Link
+                                to={`/rooms/${r.id}`}
                                 key={r.id}
                                 className="group block bg-[#f7f5f1] border border-transparent hover:border-[#e5e5e5] transition-colors"
                             >
                                 <div className="h-64 overflow-hidden relative">
-                                    <img 
-                                        src={r.image} 
-                                        alt={r.name} 
+                                    <img
+                                        src={r.image}
+                                        alt={r.name}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
                                     <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-[#0f1f47] uppercase tracking-wider shadow-sm">
@@ -346,8 +346,8 @@ const SingleRoom = () => {
                                         {r.name}
                                     </h3>
                                     <p className="text-[#6a6a6a] text-sm uppercase tracking-wider flex items-center gap-4">
-                                        <span><Users className="w-4 h-4 inline mr-1 text-[#9b7b45]"/> {r.details.maxGuests.charAt(0)} Max</span>
-                                        <span><Maximize className="w-4 h-4 inline mr-1 text-[#9b7b45]"/> {r.details.sqrFt}</span>
+                                        <span><Users className="w-4 h-4 inline mr-1 text-[#9b7b45]" /> {r.details.maxGuests.charAt(0)} Max</span>
+                                        <span><Maximize className="w-4 h-4 inline mr-1 text-[#9b7b45]" /> {r.details.sqrFt}</span>
                                     </p>
                                 </div>
                             </Link>
@@ -360,27 +360,27 @@ const SingleRoom = () => {
             {/* Lightbox Overlay */}
             {lightboxOpen && (
                 <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
-                    <button 
+                    <button
                         onClick={closeLightbox}
                         className="absolute top-6 right-6 lg:top-10 lg:right-10 text-white/70 hover:text-white transition-colors"
                     >
                         <X className="w-8 h-8 md:w-10 md:h-10" />
                     </button>
-                    
-                    <button 
+
+                    <button
                         onClick={prevImage}
                         className="absolute left-4 lg:left-10 text-white/50 hover:text-white transition-colors p-2"
                     >
                         <ChevronLeft className="w-10 h-10 md:w-14 md:h-14" />
                     </button>
 
-                    <img 
-                        src={room.images[currentImageIndex]} 
-                        alt="Lightbox View" 
+                    <img
+                        src={room.images[currentImageIndex]}
+                        alt="Lightbox View"
                         className="max-h-[85vh] max-w-[90vw] object-contain shadow-2xl"
                     />
 
-                    <button 
+                    <button
                         onClick={nextImage}
                         className="absolute right-4 lg:right-10 text-white/50 hover:text-white transition-colors p-2"
                     >

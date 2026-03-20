@@ -61,9 +61,7 @@ const Experiences = () => {
                                     to={`/experiences/${exp.id}`}
                                     className="group inline-flex items-center text-xs md:text-sm uppercase tracking-[0.2em] font-medium text-[#4f4f4f]"
                                 >
-                                    <span className="border border-[#1f1f1f] px-8 py-3 mr-6 hover:bg-[#1f1f1f] hover:text-white transition-colors duration-300">
-                                        BOOK
-                                    </span>
+                                
                                     <span className="text-[#9b7b45] group-hover:text-[#0f1f47] transition-colors flex items-center">
                                         Discover more <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                                     </span>
