@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import hero1 from "../../assets/hotel/hotel_exterior_01.jpg";
+import hero2 from "../../assets/parahreo.jpg";
 
 const HeroSection = () => {
   // const [form, setForm] = useState({
@@ -14,14 +16,12 @@ const HeroSection = () => {
 
   const [slides] = useState([
     {
-      image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1950&q=80",
+      image: hero1,
       title: "Welcome to Hotel Aashirwad",
       subtitle: "Luxury & Comfort in the Heart of Pokhara",
     },
     {
-      image:
-        "https://assets-excellenttrek.b-cdn.net/wp-content/uploads/2017/03/paragliding-in-pokhara.jpg",
+      image: hero2,
       title: "Elegant Rooms & Serene Views",
       subtitle: "Experience premium hospitality like never before",
     },

@@ -1,200 +1,220 @@
+import shiva from "../assets/activities/shiva.jpg";
+import shiva1 from "../assets/activities/shiva1.jpg";
+import shiva2 from "../assets/activities/shiva2.jpg";
+import stupa from "../assets/activities/santi-stupa.jpg";
+import stupa1 from "../assets/activities/stupa2.jpg";
+import stupa2 from "../assets/activities/stupa3.jpg";
+import sarangkot from "../assets/activities/sarangkot.jpg";
+import sarangkot1 from "../assets/activities/sarangkot1.jpg";
+import sarangkot2 from "../assets/activities/sarangkot2.jpg";
+import sarangkot3 from "../assets/activities/sarangkot3.jpg";
+import sarangkot4 from "../assets/activities/sarangkot4.jpg";
+import sarangkot5 from "../assets/activities/sarangkot5.jpg";
+import sarangkot6 from "../assets/activities/sarangkot6.jpg";
+import phewa from "../assets/activities/phewa.jpg";
+import phewa2 from "../assets/activities/phewa2.jpeg";
+import phewa3 from "../assets/activities/phewa3.jpg";
+import phewa1 from "../assets/activities/phewa1.jpg";
+import begnas from "../assets/activities/begnas.jpg";
+import begnas1 from "../assets/activities/begnas1.webp";
+import ultralight from "../assets/activities/ultralight.webp";
+import ultralight1 from "../assets/activities/ultralight1.webp";
+import ultralight2 from "../assets/activities/ultralight2.jpg";
+import museum from "../assets/activities/Museum.jpg";
+import museum1 from "../assets/activities/Museum1.webp";
+import museum2 from "../assets/activities/Museum2.jpg";
+
 export const activitiesData = [
-    {
-        id: "paragliding-over-phewa-lake",
-        name: "Paragliding Over Phewa Lake",
-        shortDescription: "Experience the ultimate thrill of flying above Pokhara's stunning landscapes.",
-        description: "Soar like an eagle and witness Pokhara from an unparalleled vantage point. Launching from the scenic Sarangkot hill, our tandem paragliding flights offer breathtaking views of the Annapurna range, the serene Phewa Lake, and the lush surrounding valleys. Flown by internationally certified and highly experienced pilots, this adventure guarantees both maximum safety and an unforgettable adrenaline rush. Whether you are seeking a gentle, scenic flight or exciting acrobatic spirals, our pilots tailor the experience to your comfort level.",
-        image: "https://images.unsplash.com/photo-1596766448374-de753df183a3?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1596766448374-de753df183a3?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1506506300454-e0cba0029b35?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1520635118544-d89047b4d119?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1621361955767-15efefb65c27?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "Paragliding Over Phewa Lake",
-        details: {
-            duration: "30 - 45 Minutes Flight (2 Hours Total)",
-            availability: "Daily (Subject to weather conditions)",
-            groupSize: "Individual (Tandem with Pilot)",
-            price: "Rs. 8,500 per person",
-            requirements: "Weight between 40kg to 100kg. No age limit."
-        },
-        features: [
-            "Tandem flight with a certified professional pilot",
-            "Incredible aerial views of the Himalayas and Phewa Lake",
-            "Safe, modern, and regularly inspected equipment",
-            "Optional acrobatic maneuvers upon request"
-        ],
-        included: [
-            "Round-trip transportation from the hotel to Sarangkot",
-            "Comprehensive safety briefing",
-            "In-flight photo and video recording (provided via USB/Link)",
-            "Post-flight celebratory hot beverage"
-        ]
+  {
+    id: "pumdikot-shiva-statue",
+    name: "Pumdikot Shiva Statue Visit",
+    shortDescription:
+      "Visit the majestic Shiva statue overlooking Pokhara valley.",
+    description:
+      "Perched on Pumdikot hill, the towering statue of Lord Shiva is one of the newest and most iconic landmarks in Pokhara. The site offers breathtaking panoramic views of the Annapurna range, Phewa Lake, and the entire Pokhara valley. The peaceful environment combined with spiritual ambiance makes it a perfect place for both sightseeing and reflection.",
+    image: shiva,
+    images: [shiva1, shiva2],
+    imageAlt: "Pumdikot Shiva Statue",
+    details: {
+      duration: "2 - 3 Hours",
+      availability: "Daily",
+      groupSize: "1 - 10 Guests",
+      price: "Rs. 1,500 per person",
+      requirements: "Light walking required",
     },
-    {
-        id: "sunrise-sarangkot-tour",
-        name: "Sunrise Sarangkot Tour",
-        shortDescription: "Witness the majestic Himalayas catching the first rays of the sun.",
-        description: "Begin your day before dawn with a guided excursion to Sarangkot, the premier viewpoint in the Pokhara valley. As the sun slowly crests the horizon, watch in awe as the snow-capped peaks of Dhaulagiri, Machhapuchhare (Fishtail), and the Annapurna massif transform from cold blue to brilliant gold. The panoramic sweeping views of the valley waking up under the morning light create a deeply spiritual and picturesque experience that is a must-do for any visitor to Nepal.",
-        image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1588667823531-bcbc31b53e4b?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1561570176-1b42eb5d58ff?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "Sunrise Sarangkot Tour",
-        details: {
-            duration: "3 Hours",
-            availability: "Daily, Departure at 04:30 AM",
-            groupSize: "2 - 6 Guests",
-            price: "Rs. 2,000 per person",
-            requirements: "Warm clothing recommended"
-        },
-        features: [
-            "Unobstructed sunrise views of the Annapurna Range",
-            "Guided explanation of the mountain peaks",
-            "Comfortable early-morning transport",
-            "Great photography opportunities"
-        ],
-        included: [
-            "Private luxury vehicle transportation",
-            "Experienced local guide",
-            "Entrance fees to the Sarangkot viewpoint",
-            "Thermos of hot tea or coffee served at the summit"
-        ]
+    features: [
+      "Massive Shiva statue viewpoint",
+      "Panoramic Himalayan and valley views",
+      "Peaceful spiritual atmosphere",
+      "Great photography location",
+    ],
+    included: [
+      "Private vehicle transportation",
+      "Entrance fees",
+      "Local guide",
+      "Bottled water",
+    ],
+  },
+  {
+    id: "world-peace-pagoda-visit",
+    name: "World Peace Pagoda Visit",
+    shortDescription:
+      "Experience tranquility at Pokhara's iconic hilltop stupa.",
+    description:
+      "The World Peace Pagoda (Shanti Stupa) is a symbol of peace and harmony located on a hilltop above Phewa Lake. The gleaming white structure offers stunning panoramic views of the lake, Pokhara city, and surrounding mountains. It is an ideal place to relax, meditate, and enjoy the beauty of nature.",
+    image: stupa,
+    images: [stupa1, stupa2],
+    imageAlt: "World Peace Pagoda",
+    details: {
+      duration: "2 - 4 Hours",
+      availability: "Daily",
+      groupSize: "1 - 8 Guests",
+      price: "Rs. 2,000 per person",
+      requirements: "Moderate walking",
     },
-    {
-        id: "annapurna-base-camp-heli-tour",
-        name: "Annapurna Base Camp Heli Tour",
-        shortDescription: "An exclusive helicopter journey into the heart of the Annapurna Sanctuary.",
-        description: "For those with limited time or seeking the ultimate luxury adventure, our Annapurna Base Camp Helicopter Tour offers an unparalleled experience. Lift off from Pokhara and soar directly into the majestic amphitheater of the Annapurna Sanctuary. Landing at the Base Camp (4,130m), you will have the rare opportunity to stand surrounded by towering 7,000m and 8,000m peaks, including Annapurna I and Machhapuchhare. It is a awe-inspiring combination of thrilling flight and monumental natural beauty.",
-        image: "https://images.unsplash.com/photo-1533038590840-1cbea976a482?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1533038590840-1cbea976a482?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1517409419323-93cfcbbaeb3b?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1616147413647-79b88d22dfb8?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1542125028-2cf61a5c68f7?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "Annapurna Base Camp Heli Tour",
-        details: {
-            duration: "2 Hours (includes 30 min ground time)",
-            availability: "Daily morning flights (Weather dependent)",
-            groupSize: "1 - 5 Guests per helicopter",
-            price: "From Rs. 45,000 per person",
-            requirements: "No serious high-altitude health issues"
-        },
-        features: [
-            "Direct flight into the Annapurna Sanctuary",
-            "30-minute landing at Annapurna Base Camp",
-            "Bird's-eye view of traditional Gurung villages",
-            "VIP personalized service"
-        ],
-        included: [
-            "Hotel transfer to and from the helipad",
-            "Chartered helicopter flight",
-            "Oxygen equipment onboard (for emergencies)",
-            "Premium breakfast packed by our Executive Chef"
-        ]
+    features: [
+      "Iconic white stupa",
+      "Panoramic views of Pokhara",
+      "Peaceful environment",
+      "Perfect sunset spot",
+    ],
+    included: ["Transport", "Guide", "Entrance fees", "Water bottle"],
+  },
+  {
+    id: "sarangkot-viewpoint",
+    name: "Sarangkot Viewpoint Tour",
+    shortDescription:
+      "Enjoy breathtaking sunrise and mountain views from Sarangkot.",
+    description:
+      "Sarangkot is the most popular viewpoint in Pokhara, known for its incredible sunrise views over the Annapurna and Dhaulagiri ranges. It also offers a bird’s-eye view of Phewa Lake and Pokhara city, making it a must-visit destination.",
+    image: sarangkot,
+    images: [sarangkot1, sarangkot3, sarangkot5, sarangkot6],
+    imageAlt: "Sarangkot Viewpoint",
+    details: {
+      duration: "3 Hours",
+      availability: "Daily",
+      groupSize: "1 - 10 Guests",
+      price: "Rs. 1,800 per person",
+      requirements: "Warm clothing",
     },
-    {
-        id: "peace-pagoda-hiking",
-        name: "World Peace Pagoda Hike",
-        shortDescription: "A rewarding trek through lush forests to a monument of global harmony.",
-        description: "Embark on a guided hike to the brilliant white World Peace Pagoda (Shanti Stupa) perched atop Ananda hill. The journey begins with a serene boat ride across Phewa Lake, followed by an invigorating climb uphill through dense, vibrant forests teeming with local birdlife. Upon reaching the summit, you are rewarded with a profound atmosphere of peace and sprawling, panoramic views of the entire Pokhara valley, the lake, and the distant Himalayan peaks.",
-        image: "https://images.unsplash.com/photo-1582235967910-410a8ef1bf53?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1582235967910-410a8ef1bf53?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1589578631163-9528e1dcba83?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1538356111053-748a48e1acb8?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1522204481084-297eb0b9a844?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "World Peace Pagoda Hike",
-        details: {
-            duration: "4 - 5 Hours",
-            availability: "Daily, Morning or Afternoon starts",
-            groupSize: "2 - 8 Guests",
-            price: "Rs. 3,500 per person",
-            requirements: "Moderate physical fitness required"
-        },
-        features: [
-            "Scenic wooden boat crossing of Phewa Lake",
-            "Guided nature walk through tropical flora",
-            "Visit to the iconic Shanti Stupa",
-            "Breathtaking photography vantage points"
-        ],
-        included: [
-            "Professional trekking guide",
-            "Two-way boat transfer across the lake",
-            "Packed luxury picnic lunch at the summit",
-            "Walking poles and bottled water"
-        ]
+    features: [
+      "Best sunrise viewpoint",
+      "Mountain panorama",
+      "View of Pokhara valley",
+      "Photography hotspot",
+    ],
+    included: ["Transportation", "Guide", "Entrance fee", "Hot tea"],
+  },
+  {
+    id: "boating-phewa-lake",
+    name: "Boating on Phewa Lake",
+    shortDescription: "Relax with a scenic boat ride on Pokhara’s famous lake.",
+    description:
+      "Enjoy a peaceful boating experience on the serene waters of Phewa Lake. Surrounded by lush hills and reflecting the Annapurna range, the lake offers a tranquil escape. You can also visit Tal Barahi Temple located on an island in the lake.",
+    image: phewa,
+    images: [phewa1, phewa2, phewa3],
+    imageAlt: "Boating on Phewa Lake",
+    details: {
+      duration: "1 - 2 Hours",
+      availability: "Daily",
+      groupSize: "1 - 5 Guests per boat",
+      price: "Rs. 800 per hour",
+      requirements: "Life jacket provided",
     },
-    {
-        id: "mountain-biking-trails",
-        name: "Mountain Biking Adventure",
-        shortDescription: "Explore the rugged terrain and traditional villages on two wheels.",
-        description: "For the active traveler, our mountain biking adventure offers a thrilling way to explore the outskirts of Pokhara. We provide high-end, well-maintained mountain bikes and expert guides who will lead you through a network of trails ranging from gentle countryside paths to challenging downhill drops. Ride along the shores of pristine lakes, pedal through terraced rice fields, and interact with welcoming locals in traditional villages that remain untouched by modern tourism.",
-        image: "https://images.unsplash.com/photo-1511994298241-608e28f14fde?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1511994298241-608e28f14fde?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1471506411702-8f921d74637b?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "Mountain Biking Adventure",
-        details: {
-            duration: "Half Day (4 Hours) or Full Day (8 Hours)",
-            availability: "Daily, starting at 08:00 AM",
-            groupSize: "1 - 6 Guests",
-            price: "From Rs. 4,000 per person",
-            requirements: "Basic cycling proficiency"
-        },
-        features: [
-            "Premium Trek/Giant mountain bikes provided",
-            "Customizable routes based on fitness and skill level",
-            "Exploration of off-the-beaten-path locations",
-            "Support vehicle access on major route sections"
-        ],
-        included: [
-            "High-quality mountain bike and safety helmet",
-            "Experienced cycle guide and mechanic",
-            "Energy bars, fresh fruit, and hydration packs",
-            "First-aid kit and on-trail mechanical support"
-        ]
+    features: [
+      "Calm scenic lake experience",
+      "Visit Tal Barahi Temple",
+      "Mountain reflections",
+      "Perfect for relaxation",
+    ],
+    included: [
+      "Boat rental",
+      "Life jacket",
+      "Boat operator (optional)",
+      "Safety briefing",
+    ],
+  },
+  {
+    id: "begnas-lake-tour",
+    name: "Begnas Lake Visit",
+    shortDescription: "Escape the crowds at the peaceful Begnas Lake.",
+    description:
+      "Begnas Lake offers a quieter and more serene alternative to Phewa Lake. Surrounded by green hills and less commercialized, it is perfect for relaxation, boating, and enjoying nature away from the busy city.",
+    image: begnas,
+    images: [begnas1, begnas],
+    imageAlt: "Begnas Lake",
+    details: {
+      duration: "4 - 5 Hours",
+      availability: "Daily",
+      groupSize: "1 - 10 Guests",
+      price: "Rs. 2,500 per person",
+      requirements: "None",
     },
-    {
-        id: "yoga-and-meditation",
-        name: "Morning Yoga & Meditation",
-        shortDescription: "Find your inner peace surrounded by nature's tranquility.",
-        description: "Align your mind and body with our guided Morning Yoga and Meditation sessions. Held in our specially designed, open-air pavilion overlooking the lush hotel gardens and the distant mountains, these sessions are designed to foster mindfulness and spiritual awareness. Led by our resident yogi, the classes cater to all levels, blending Hatha and Vinyasa flow with deep breathing techniques to prepare you mentally and physically for the day ahead.",
-        image: "https://images.unsplash.com/photo-1599901860904-17e0868f70fa?q=80&w=1200&auto=format&fit=crop",
-        images: [
-            "https://images.unsplash.com/photo-1599901860904-17e0868f70fa?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=1200&auto=format&fit=crop",
-            "https://images.unsplash.com/photo-1524863479829-916d8e77f114?q=80&w=1200&auto=format&fit=crop"
-        ],
-        imageAlt: "Morning Yoga & Meditation",
-        details: {
-            duration: "90 Minutes",
-            availability: "Daily, 06:30 AM",
-            groupSize: "Max 12 Guests",
-            price: "Complimentary for Hotel Guests",
-            requirements: "Comfortable activewear"
-        },
-        features: [
-            "Guided instruction by a certified yoga practitioner",
-            "Serene, open-air pavilion setting",
-            "Focus on mindfulness and breathwork",
-            "Suitable for beginners and advanced practitioners"
-        ],
-        included: [
-            "Premium yoga mats and props (blocks, straps)",
-            "Aromatherapy environment setup",
-            "Fresh cold-pressed detox juice post-session",
-            "Scented cold towels"
-        ]
-    }
+    features: [
+      "Peaceful natural setting",
+      "Less crowded than Phewa",
+      "Boating and lakeside dining",
+      "Relaxing atmosphere",
+    ],
+    included: ["Transport", "Guide", "Boat ride", "Lunch"],
+  },
+  {
+    id: "ultralight-flight",
+    name: "Ultralight Flight Experience",
+    shortDescription: "Fly like a bird over Pokhara in an ultralight aircraft.",
+    description:
+      "Experience the thrill of flying in an ultralight aircraft above Pokhara valley. Enjoy unmatched aerial views of lakes, mountains, and villages while flying with a professional pilot in a safe and lightweight aircraft.",
+    image: ultralight,
+    images: [ultralight1, ultralight2],
+    imageAlt: "Ultralight Flight",
+    details: {
+      duration: "15 - 60 Minutes",
+      availability: "Morning flights only",
+      groupSize: "1 Person",
+      price: "From Rs. 10,000",
+      requirements: "Weather dependent",
+    },
+    features: [
+      "Aerial views of Pokhara",
+      "Safe and certified pilots",
+      "Flexible flight duration",
+      "Unique flying experience",
+    ],
+    included: [
+      "Flight session",
+      "Pilot",
+      "Safety briefing",
+      "Photos (optional)",
+    ],
+  },
+  {
+    id: "international-mountain-museum",
+    name: "International Mountain Museum",
+    shortDescription:
+      "Explore the history of mountaineering and Himalayan culture.",
+    description:
+      "The International Mountain Museum showcases the history, culture, and biodiversity of the Himalayas. It features exhibits on famous climbers, mountain expeditions, and the lifestyle of Himalayan communities.",
+    image: museum,
+    images: [museum, museum1, museum2],
+    imageAlt: "International Mountain Museum",
+    details: {
+      duration: "2 - 3 Hours",
+      availability: "Daily",
+      groupSize: "1 - 15 Guests",
+      price: "Rs. 1,000 per person",
+      requirements: "None",
+    },
+    features: [
+      "Mountaineering history exhibits",
+      "Cultural insights",
+      "Educational displays",
+      "Family-friendly activity",
+    ],
+    included: [
+      "Entrance ticket",
+      "Guide (optional)",
+      "Information booklet",
+      "Parking",
+    ],
+  },
 ];

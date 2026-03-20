@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import about1 from "../../assets/hotel/hotel_exterior_07.jpg";
+import about2 from "../../assets/hotel/hotel_exterior_05.jpg";
+import about3 from "../../assets/hotel/deluxe_1.jpg";
 
 const aboutImages = [
   {
-    src: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1350&q=80",
+    src: about1,
     alt: "Luxury hotel bedroom interior",
   },
   {
-    src: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1350&q=80",
+    src: about2,
     alt: "Elegant suite room with warm lights",
   },
   {
-    src: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1350&q=80",
+    src: about3,
     alt: "Premium room with modern decor",
   },
 ];
