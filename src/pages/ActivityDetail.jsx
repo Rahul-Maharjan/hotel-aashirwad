@@ -95,9 +95,9 @@ const ActivityDetail = () => {
 
                         {/* What's Included */}
                         <section>
-                            <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">What We Provide</h2>
+                            <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">Features</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 bg-white p-8 border border-[#e5e5e5] shadow-sm">
-                                {activity.included.map((item, i) => (
+                                {activity.features.map((item, i) => (
                                     <div key={i} className="flex items-start gap-3">
                                         <CheckCircle2 className="w-6 h-6 text-[#9b7b45] flex-shrink-0" />
                                         <span className="text-[#4f4f4f] font-medium">{item}</span>

@@ -23,6 +23,8 @@ import ultralight2 from "../assets/activities/ultralight2.jpg";
 import museum from "../assets/activities/Museum.jpg";
 import museum1 from "../assets/activities/Museum1.webp";
 import museum2 from "../assets/activities/Museum2.jpg";
+import batcave from "../assets/activities/batcave.jpg";
+import batcave2 from "../assets/activities/batcave2.jpeg";
 
 export const activitiesData = [
   {
@@ -215,6 +217,36 @@ export const activitiesData = [
       "Guide (optional)",
       "Information booklet",
       "Parking",
+    ],
+  },
+  {
+    id: "bat-cave-visit",
+    name: "Bat Cave Visit",
+    shortDescription:
+      "Explore the mysterious Bat Cave and its unique underground formations.",
+    description:
+      "Located near Davis Falls, the Bat Cave is a natural limestone cave that is home to thousands of bats. The cave features narrow passages and underground chambers, offering a thrilling exploration experience. Local guides lead tours through the cave, sharing interesting facts about its geology and wildlife.",
+    image: batcave,
+    images: [batcave, batcave2],
+    imageAlt: "Bat Cave",
+    details: {
+      duration: "1 - 2 Hours",
+      availability: "Daily",
+      groupSize: "1 - 10 Guests",
+      price: "Rs. 1,200 per person",
+      requirements: "Flashlight provided",
+    },
+    features: [
+      "Natural limestone cave",
+      "Underground passages",
+      "Bat observation",
+      "Educational tour",
+    ],
+    included: [
+      "Entrance fee",
+      "Local guide",
+      "Flashlight",
+      "Safety equipment",
     ],
   },
 ];
