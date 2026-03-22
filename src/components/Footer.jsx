@@ -19,12 +19,11 @@ const quickLinks = [
   { name: "About Us", path: "/about" },
   { name: "Experiences", path: "/experiences" },
   { name: "Blogs", path: "/blog" },
-  { name: "Gallery", path: "/gallery" },
-  { name: "Reviews", path: "/reviews" },
+  { name: "Contact Us", path: "/contact"},
 ];
 
 const socialLinks = [
-  { icon: Facebook, path: "https://facebook.com", name: "Facebook" },
+  { icon: Facebook, path: "https://www.facebook.com/p/Hotel-Aashirwad-Restaurant-100083718402718/", name: "Facebook" },
   { icon: Instagram, path: "https://instagram.com", name: "Instagram" },
   { icon: Twitter, path: "https://twitter.com", name: "Twitter" },
   { icon: FaTiktok, path: "https://tiktok.com", name: "TikTok" },

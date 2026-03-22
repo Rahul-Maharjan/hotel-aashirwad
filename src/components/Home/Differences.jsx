@@ -4,20 +4,21 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import room from "../../assets/hotel/deluxe_1.jpg";
+import location from "../../assets/hotel/hotel_exterior_02.jpg";
+import hospitality from "../../assets/hotel/hotel_exterior_07.jpg";
 
 const differencesSlides = [
   {
     id: 1,
-    image:
-      "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=80",
+    image: room,
     title: "Enjoy Our Luxurious Rooms",
     description:
       "Each space is filled with carefully curated details and a warm sense of elegance.",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1455587734955-081b22074882?auto=format&fit=crop&w=1800&q=80",
+    image: location,
     title: "Our Location On The Lake",
     description:
       "Breathe fresh mountain air and experience Pokhara from a serene lakeside setting.",
@@ -32,8 +33,7 @@ const differencesSlides = [
   },
   {
     id: 4,
-    image:
-      "https://images.unsplash.com/photo-1444201983204-c43cbd584d93?auto=format&fit=crop&w=1800&q=80",
+    image: hospitality,
     title: "Signature Hospitality",
     description:
       "Personalized service and thoughtful comfort designed around every guest journey.",
