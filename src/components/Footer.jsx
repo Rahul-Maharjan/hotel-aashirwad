@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Phone, Mail } from "lucide-react";
+import { Facebook, Instagram, Twitter, Phone, Mail, MapPin, Send } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
 
 import logo from "../assets/logo.png";
@@ -16,286 +16,199 @@ import makemytripLogo from "../assets/ota/makemytrip.png";
 
 const quickLinks = [
   { name: "Home", path: "/" },
-  { name: "About Us", path: "#" },
+  { name: "About Us", path: "/about" },
   { name: "Experiences", path: "/experiences" },
   { name: "Blogs", path: "/blog" },
-  { name: "Gallery", path: "#" },
-  { name: "Reviews", path: "#" },
+  { name: "Gallery", path: "/gallery" },
+  { name: "Reviews", path: "/reviews" },
+];
+
+const socialLinks = [
+  { icon: Facebook, path: "https://facebook.com", name: "Facebook" },
+  { icon: Instagram, path: "https://instagram.com", name: "Instagram" },
+  { icon: Twitter, path: "https://twitter.com", name: "Twitter" },
+  { icon: FaTiktok, path: "https://tiktok.com", name: "TikTok" },
+];
+
+const otaLogos = [
+  { src: expediaLogo, alt: "Expedia", link: "https://www.expedia.com/" },
+  { src: bookingLogo, alt: "Booking.com", link: "https://www.booking.com/" },
+  { src: agodaLogo, alt: "Agoda", link: "https://www.agoda.com/" },
+  { src: makemytripLogo, alt: "MakeMyTrip", link: "https://www.makemytrip.com/" },
+];
+
+const paymentLogos = [
+  { src: visaLogo, alt: "Visa", link: "https://www.visa.com/" },
+  { src: esewaLogo, alt: "eSewa", link: "https://www.esewa.com.np/" },
+  { src: khaltiLogo, alt: "Khalti", link: "https://www.khalti.com/" },
+  { src: paypalLogo, alt: "PayPal", link: "https://www.paypal.com/" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-white text-gray-800 font-sans">
-      {/* NEWSLETTER */}
+    <footer className="bg-white text-gray-800 font-body">
+      {/* NEWSLETTER SECTION */}
       <div className="border-b bg-[#003580] text-white">
         <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col lg:flex-row items-center justify-between gap-10">
-          {/* LEFT */}
           <div className="max-w-xl text-center lg:text-left">
-            <h3 className="font-display text-2xl mb-2">
+            <h3 className="font-heading text-2xl mb-2">
               Subscribe To Receive Exclusive Offers And News
             </h3>
-
-            <p className="text-primary-foreground/70 mb-6">
+            <p className="opacity-70 mb-6 font-light">
               Join our mailing list to stay updated with our latest offerings
             </p>
-
             <form className="flex gap-3 flex-wrap">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-primary-foreground/10 border border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:outline-none focus:border-primary transition-colors"
+                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-white transition-colors"
+                required
               />
-
               <button
                 type="submit"
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium border border-white/20"
               >
                 Subscribe
               </button>
             </form>
           </div>
 
-          {/* OTA LOGOS */}
           <div className="flex flex-wrap items-center justify-center lg:justify-end gap-4">
-            <Link
-              to="https://www.expedia.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center"
-            >
-              <img
-                src={expediaLogo}
-                alt="Expedia"
-                className="h-full w-full object-contain"
-              />
-            </Link>
-
-            <Link
-              to="https://www.esewa.com.np/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center"
-            >
-              <img
-                src={esewaLogo}
-                alt="eSewa"
-                className="h-full w-full object-contain"
-              />
-            </Link>
-
-            <Link
-              to="https://www.booking.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center"
-            >
-              <img
-                src={bookingLogo}
-                alt="Booking.com"
-                className="h-full w-full object-contain"
-              />
-            </Link>
-
-            <Link
-              to="https://www.agoda.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center"
-            >
-              <img
-                src={agodaLogo}
-                alt="Agoda"
-                className="h-full w-full object-contain"
-              />
-            </Link>
-
-            <Link
-              to="https://www.makemytrip.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center"
-            >
-              <img
-                src={makemytripLogo}
-                alt="MakeMyTrip"
-                className="h-full w-full object-contain"
-              />
-            </Link>
+            {otaLogos.map((ota, idx) => (
+              <Link
+                key={idx}
+                to={ota.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white border rounded-lg p-3 h-14 w-28 flex items-center justify-center transition-transform hover:scale-105"
+              >
+                <img
+                  src={ota.src}
+                  alt={ota.alt}
+                  className="h-full w-full object-contain"
+                />
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
       {/* MAIN FOOTER */}
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="flex flex-col lg:flex-row justify-between gap-6">
-          {/* LEFT (middle on mobile/tablet) */}
-          <div className="lg:max-w-[33%] w-full px-12 lg:px-0 order-2 lg:order-none text-center lg:text-left">
-            <p className="text-gray-600 leading-relaxed mb-6">
-              Experience luxury, comfort, and serenity in the heart of Pokhara.
-              Your memorable stay starts here.
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 text-center sm:text-left">
+          {/* Column 1: Brand & Description */}
+          <div className="flex flex-col items-center sm:items-start space-y-6">
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Hotel Aashirwad" className="h-12 w-auto" />
+              <div className="flex flex-col">
+                <span className="font-heading text-2xl italic leading-none">Hotel</span>
+                <span className="font-heading text-2xl font-semibold leading-none">Aashirwad</span>
+              </div>
+            </div>
+            <p className="text-gray-600 leading-relaxed max-w-xs">
+              Experience the perfect blend of local hospitality and modern luxury in the heart of Lakeside, Pokhara. Your serene escape awaits.
             </p>
-
-            <h4 className="text-lg font-semibold mb-4">We Accept</h4>
-
-            <div className="flex gap-4 justify-center lg:justify-start">
-              <Link
-                to="https://www.visa.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border rounded-lg p-2 h-12 w-12 flex items-center justify-center"
-              >
-                <img src={visaLogo} alt="Visa" />
-              </Link>
-
-              <Link
-                to="https://www.esewa.com.np/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border rounded-lg p-2 h-12 w-12 flex items-center justify-center"
-              >
-                <img src={esewaLogo} alt="eSewa" />
-              </Link>
-
-              <Link
-                to="https://www.khalti.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border rounded-lg p-2 h-12 w-12 flex items-center justify-center"
-              >
-                <img src={khaltiLogo} alt="Khalti" />
-              </Link>
-
-              <Link
-                to="https://www.paypal.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white border rounded-lg p-2 h-12 w-12 flex items-center justify-center"
-              >
-                <img src={paypalLogo} alt="PayPal" />
-              </Link>
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 bg-gray-100 text-gray-600 rounded-full hover:bg-accent hover:text-primary transition-all duration-300"
+                  aria-label={social.name}
+                >
+                  <social.icon size={20} />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* CENTER (top on mobile/tablet) */}
-          <div className="text-center w-full lg:max-w-[33%] mx-auto order-1 lg:order-none px-6 lg:px-0">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-3 mb-4">
-              <img
-                src={logo}
-                alt="Hotel Aashirwad"
-                className="h-12 w-auto shrink-0"
-              />
-
-              <h1 className="text-2xl md:text-3xl lg:text-4xl tracking-wide font-heading italic text-black">
-                <span className="font-light">Hotel</span>
-                <span className="font-normal ml-2">Aashirwad</span>
-              </h1>
-            </div>
-
-            <p className="text-gray-600 mb-6">Lakeside-6, Pokhara, Nepal</p>
-
-            <div className="flex justify-center gap-4">
-              <Link
-                to="https://www.facebook.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition"
-              >
-                <Facebook size={18} />
-              </Link>
-
-              <Link
-                to="https://www.instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition"
-              >
-                <Instagram size={18} />
-              </Link>
-
-              <Link
-                to="https://www.twitter.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition"
-              >
-                <Twitter size={18} />
-              </Link>
-
-              <Link
-                to="https://www.tiktok.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-100 rounded-full hover:bg-gray-200 transition"
-              >
-                <FaTiktok size={18} />
-              </Link>
-            </div>
+          {/* Column 2: Quick Links */}
+          <div className="flex flex-col items-center sm:items-start">
+            <h4 className="font-heading text-xl font-semibold mb-6">Quick Links</h4>
+            <ul className="space-y-4">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.path}
+                    className="text-gray-600 hover:text-accent hover:translate-x-1 transition-all inline-block"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* RIGHT (bottom on mobile/tablet) */}
-          <div className="flex md:justify-between gap-6 justify-center max-w-full lg:max-w-[33%] order-3 lg:order-none px-12 lg:px-0">
-            {/* QUICK LINKS */}
-            <div>
-              <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link
-                      to={link.path}
-                      className="text-gray-600 hover:text-black transition"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Column 3: Contact Details */}
+          <div className="flex flex-col items-center sm:items-start">
+            <h4 className="font-heading text-xl font-semibold mb-6">Contact Us</h4>
+            <ul className="space-y-4 text-gray-600">
+              <li className="flex items-start gap-3 justify-center sm:justify-start">
+                <MapPin size={20} className="text-accent shrink-0" />
+                <span>Lakeside-6, Pokhara, Nepal</span>
+              </li>
+              <li className="flex items-center gap-3 justify-center sm:justify-start">
+                <Phone size={20} className="text-accent shrink-0" />
+                <a href="tel:+9779856036622" className="hover:text-accent transition-colors">
+                  +977 9856036622
+                </a>
+              </li>
+              <li className="flex items-center gap-3 justify-center sm:justify-start">
+                <Mail size={20} className="text-accent shrink-0" />
+                <a href="mailto:info@hotelaashirwad.com" className="hover:text-accent transition-colors">
+                  info@hotelaashirwad.com
+                </a>
+              </li>
+            </ul>
+          </div>
 
-            {/* CONTACT */}
-            <div>
-              <ul className="space-y-4">
-                <li>
-                  <a
-                    href="tel:+9779800000000"
-                    className="flex items-center text-gray-600 hover:text-black"
-                  >
-                    <Phone className="mr-2" size={16} />
-                    +977 9800000000
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="mailto:info@hotelaashirwad.com"
-                    className="flex items-center text-gray-600 hover:text-black"
-                  >
-                    <Mail className="mr-2" size={16} />
-                    info@hotelaashirwad.com
-                  </a>
-                </li>
-              </ul>
+          {/* Column 4: Experience & Payments */}
+          <div className="flex flex-col items-center sm:items-start">
+            <h4 className="font-heading text-xl font-semibold mb-6">Secured Payments</h4>
+            <p className="text-gray-600 mb-6 max-w-xs text-center sm:text-left">
+              We accept multiple payment methods for your convenience and secure booking.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+              {paymentLogos.map((payment, idx) => (
+                <a
+                  key={idx}
+                  href={payment.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white border border-gray-100 rounded shadow-sm p-2 h-10 w-14 flex items-center justify-center hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src={payment.src}
+                    alt={payment.alt}
+                    className="h-full w-full object-contain"
+                  />
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
       {/* FOOTER BOTTOM */}
-      <div className="border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between text-gray-500 text-sm">
+      <div className="border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
           <p>
-            © {new Date().getFullYear()} Hotel Aashirwad. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-primary font-semibold">Hotel Aashirwad</span>. All rights reserved.
           </p>
 
-          <p className="text-xs">
-            Website by{" "}
+          <div className="flex items-center gap-2">
+            <span>Powered by</span>
             <Link
-              to="https://www.digisoftdevelopers.com.np"
+              to="https://www.archiesoft.com.np/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F59E0B] hover:underline"
+              className="text-accent font-medium hover:underline flex items-center gap-1"
             >
-              Digisoft Developers Pvt. Ltd.
+              ArchieSoft Technology
             </Link>
-          </p>
+          </div>
         </div>
       </div>
     </footer>

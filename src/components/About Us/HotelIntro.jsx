@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import hotelImg from "../../assets/hotel/hotelroom.jpg";
-import hotelImg2 from "../../assets/hotel/hotel.webp";
+import hotelImg from "../../assets/hotel/hotel_exterior_01.jpg";
+import hotelImg2 from "../../assets/hotel/hotel_exterior_02.jpg";
 
 const HotelIntro = () => {
     return (
