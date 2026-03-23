@@ -78,7 +78,7 @@ const AboutUs = () => {
               to="/about"
               className="mt-8 inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.16em] text-[#9b7b45] transition-colors duration-300 hover:text-[#7f612f] sm:text-base"
             >
-              Discover Our Rooms & Suites
+              Discover Our Hotel
               <span aria-hidden="true" className="text-lg">
                 →
               </span>

@@ -11,8 +11,7 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const menuItems = [
-    { label: "Our Hotel", href: "/" },
-    { label: "About", href: "/about" },
+    { label: "About Hotel", href: "/about" },
     {
       label: "Accommodations",
       submenu: [
@@ -258,13 +257,12 @@ const Navbar = () => {
                 ) : (
                   <Link
                     to={item.href}
-                    className="flex items-center justify-between py-4 text-[#1e2a54] hover:text-[#d4af37] transition-colors font-body"
+                    className="flex items-center py-4 text-[#1e2a54] hover:text-[#d4af37] transition-colors font-body"
                     onClick={() => setIsOpen(false)}
                   >
                     <span className="text-base font-normal tracking-wide">
                       {item.label}
                     </span>
-                    <FaChevronRight size={12} />
                   </Link>
                 )}
               </li>

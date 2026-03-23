@@ -1,5 +1,7 @@
 import { motion as Motion } from "framer-motion";
 import { activitiesData } from "../../data/activitiesData";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const ActivitiesSection = () => {
   return (
@@ -22,6 +24,16 @@ const ActivitiesSection = () => {
             Experience the best of Pokhara with unforgettable adventures and cultural experiences. From scenic mountain
             views and peaceful lake moments to famous landmarks, discover what makes Pokhara truly unique.
           </p>
+          <Motion.div
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link to="/activities" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors">
+              View All Activities <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Motion.div>
         </Motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

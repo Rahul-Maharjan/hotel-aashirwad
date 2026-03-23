@@ -119,7 +119,7 @@ const Differences = () => {
                       alt={slide.title}
                       className="h-full w-full object-cover"
                     />
-                    <div className="differences-slide-overlay absolute inset-0 bg-black/40" />
+                    <div className="differences-slide-overlay absolute inset-0 bg-black" />
 
                     <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
                       <p className="font-serif text-2xl uppercase leading-snug sm:text-[1.8rem] lg:text-[2.4rem]">
@@ -127,7 +127,7 @@ const Differences = () => {
                       </p>
                       <p className="mt-5 max-w-3xl text-sm font-semibold leading-relaxed tracking-[0.01em] text-white/90 sm:text-base lg:text-lg">
                         {slide.description}
-                        <span className="ml-2 inline-block">→</span>
+                        {/* <span className="ml-2 inline-block">→</span> */}
                       </p>
                     </div>
                   </div>
