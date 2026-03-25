@@ -1,20 +1,27 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
-import { roomData } from "../../data/roomData";
 import { ArrowRight } from "lucide-react";
 import { useRoomSection } from "../../hooks/useRoomSection";
 
 const Accomodation = () => {
   const { data, loading, error } = useRoomSection();
-  const [activeRoomId, setActiveRoomId] = useState(roomData[0].id);
+  const [activeRoomId, setActiveRoomId] = useState(null);
+
+  const rooms = useMemo(() => data?.items || [], [data]);
+
+  useEffect(() => {
+    if (rooms.length > 0 && activeRoomId === null) {
+      setActiveRoomId(rooms[0].id);
+    }
+  }, [rooms, activeRoomId]);
 
   const activeRoom = useMemo(
-    () => roomData.find((room) => room.id === activeRoomId) || roomData[0],
-    [activeRoomId]
+    () => rooms.find((room) => room.id === activeRoomId) || rooms[0],
+    [activeRoomId, rooms]
   );
 
-  if (loading || error) return null;
+  if (loading || !activeRoom) return null;
 
   return (
     <section id="rooms" className="relative bg-white py-20 lg:py-32">
@@ -35,7 +42,7 @@ const Accomodation = () => {
           </div>
 
           <div className="flex flex-col space-y-2">
-            {roomData.map((room) => {
+            {rooms.map((room) => {
               const isActive = activeRoomId === room.id;
 
               return (
@@ -49,19 +56,19 @@ const Accomodation = () => {
                     <div>
                       <h3 className={`font-serif text-2xl tracking-wide transition-colors duration-300 ${isActive ? "text-[#0f1f47]" : "text-[#888888] group-hover:text-[#2d2d2d]"
                         }`}>
-                        {room.name}
+                        {room.room_name}
                       </h3>
 
                       <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isActive ? "max-h-40 opacity-100 mt-3" : "max-h-0 opacity-0"
                         }`}>
                         <p className="text-[#9b7b45] text-sm font-semibold tracking-wider uppercase mb-2">
-                          {room.details.price} / Night
+                          {room.currency} {room.price} / Night
                         </p>
                         <p className="text-sm text-[#6a6a6a] line-clamp-2 pr-8">
-                          {room.description}
+                          {room.excerpt}
                         </p>
                         <Link
-                          to={`/rooms/${room.id}`}
+                          to={`/rooms/${room.slug}`}
                           className="inline-flex items-center gap-2 mt-4 text-xs font-bold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors"
                         >
                           Explore Room <ArrowRight className="w-4 h-4" />
@@ -80,8 +87,8 @@ const Accomodation = () => {
           <AnimatePresence mode="wait">
             <Motion.img
               key={activeRoom.id}
-              src={activeRoom.image}
-              alt={activeRoom.name}
+              src={activeRoom.featured_image}
+              alt={activeRoom.room_name}
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
@@ -91,7 +98,7 @@ const Accomodation = () => {
           </AnimatePresence>
 
           <div className="absolute top-6 left-6 bg-white/90 backdrop-blur px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47]">
-            {activeRoom.details.sqrFt}
+            {activeRoom.room_type}
           </div>
         </div>
 

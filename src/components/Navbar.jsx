@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch, FaPhone, FaChevronRight } from "react-icons/fa";
+import { FaPhone, FaChevronRight } from "react-icons/fa";
 import logo from "../assets/logo.png";
+import { useRoomSection } from "../hooks/useRoomSection";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,22 +11,31 @@ const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  const menuItems = [
-    { label: "About Hotel", href: "/about" },
-    {
-      label: "Accommodations",
-      submenu: [
-        { label: "Suite Room", href: "/rooms/suite" },
-        { label: "Deluxe Room", href: "/rooms/deluxe" },
-        { label: "Superior Deluxe", href: "/rooms/superior-deluxe" },
-        { label: "Family Room", href: "/rooms/family" },
-      ],
-    },
-    { label: "Experiences", href: "/experiences" },
-    { label: "Activities", href: "/activities" },
-    { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
-  ];
+  const { data: roomSection } = useRoomSection();
+
+  const menuItems = useMemo(() => {
+    const defaultRooms = [
+      { label: "Suite Room", href: "/rooms/suite-room" },
+      { label: "Deluxe Room", href: "/rooms/deluxe-room" },
+    ];
+
+    const dynamicRooms = roomSection?.items?.map(room => ({
+      label: room.room_name,
+      href: `/rooms/${room.slug}`
+    })) || defaultRooms;
+
+    return [
+      { label: "About Hotel", href: "/about" },
+      {
+        label: "Accommodations",
+        submenu: dynamicRooms,
+      },
+      { label: "Experiences", href: "/experiences" },
+      { label: "Activities", href: "/activities" },
+      { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
+    ];
+  }, [roomSection]);
 
   useEffect(() => {
     let ticking = false;

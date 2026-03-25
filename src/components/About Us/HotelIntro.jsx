@@ -1,9 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import hotelImg from "../../assets/hotel/hotel_exterior_01.jpg";
-import hotelImg2 from "../../assets/hotel/hotel_exterior_02.jpg";
+import { useAboutIntro } from '../../hooks/useAboutIntro';
 
 const HotelIntro = () => {
+    const { data, loading } = useAboutIntro();
+
+    if (loading) return null;
+
     return (
         <section className="py-24 md:py-32 bg-[#f9f8f6] overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,29 +23,33 @@ const HotelIntro = () => {
                         {/* Decorative Line */}
                         <div className="w-16 h-px bg-[#9b7b45] mb-8"></div>
                         
-                        <h2 className="text-3xl md:text-5xl font-serif text-[#0f1f47] uppercase tracking-wider leading-tight mb-8">
-                            A Legacy of <br className="hidden md:block" />
-                            <span className="text-[#9b7b45] italic normal-case font-serif tracking-normal">Timeless Elegance</span>
-                        </h2>
+                        <h2 
+                            className="text-3xl md:text-5xl font-serif text-[#0f1f47] uppercase tracking-wider leading-tight mb-8"
+                            dangerouslySetInnerHTML={{ __html: data?.headline ? data.headline.replace("Timeless Elegance", '<br className="hidden md:block" /><span className="text-[#9b7b45] italic normal-case font-serif tracking-normal">Timeless Elegance</span>') : 'A Legacy of <br className="hidden md:block" /><span className="text-[#9b7b45] italic normal-case font-serif tracking-normal">Timeless Elegance</span>' }}
+                        />
                         
-                        <div className="space-y-6 text-[#4f4f4f] leading-relaxed text-lg text-justify">
-                            <p>
-                                Nestled in the heart of Pokhara with sweeping views of the Himalayas, Hotel Aashirwad is more than a stay—it is an experience woven from family heritage, legendary warmth, and an unwavering commitment to luxury.
-                            </p>
-                            <p>
-                                Since opening our doors in 2010, we have welcomed travelers seeking serene lakeside mornings, curated comforts, and authentic mountain hospitality. Every detail, from our sunlit courtyards to our bespoke suites, is designed to offer a tranquil sanctuary away from the ordinary.
-                            </p>
+                        <div className="space-y-6 text-[#4f4f4f] leading-relaxed text-lg text-justify whitespace-pre-line">
+                            {data?.description || "Nestled in the heart of Pokhara with sweeping views of the Himalayas, Hotel Aashirwad is more than a stay"}
                         </div>
                         
                         <div className="mt-12 flex gap-12">
-                            <div>
-                                <p className="text-4xl font-serif text-[#0f1f47] mb-2">10+</p>
-                                <p className="text-xs uppercase tracking-widest text-[#6a6a6a] font-semibold">Years of Excellence</p>
-                            </div>
-                            <div>
-                                <p className="text-4xl font-serif text-[#0f1f47] mb-2">50k</p>
-                                <p className="text-xs uppercase tracking-widest text-[#6a6a6a] font-semibold">Happy Guests</p>
-                            </div>
+                            {data?.highlights?.map((stat, i) => (
+                                <div key={i}>
+                                    <p className="text-4xl font-serif text-[#0f1f47] mb-2">{stat.value}</p>
+                                    <p className="text-xs uppercase tracking-widest text-[#6a6a6a] font-semibold">{stat.label}</p>
+                                </div>
+                            )) || (
+                                <>
+                                    <div>
+                                        <p className="text-4xl font-serif text-[#0f1f47] mb-2">10+</p>
+                                        <p className="text-xs uppercase tracking-widest text-[#6a6a6a] font-semibold">Years of Excellence</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-4xl font-serif text-[#0f1f47] mb-2">50k</p>
+                                        <p className="text-xs uppercase tracking-widest text-[#6a6a6a] font-semibold">Happy Guests</p>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </motion.div>
 
@@ -56,7 +63,7 @@ const HotelIntro = () => {
                             viewport={{ once: true }}
                         >
                             <img 
-                                src={hotelImg}
+                                src={data?.focus_image}
                                 alt="Hotel Architecture"
                                 className="w-full h-full object-cover shadow-2xl"
                             />
@@ -70,7 +77,7 @@ const HotelIntro = () => {
                             viewport={{ once: true }}
                         >
                             <img 
-                                src={hotelImg2}
+                                src={data?.bg_image}
                                 alt="Hotel Detail"
                                 className="w-full h-full object-cover shadow-2xl"
                             />

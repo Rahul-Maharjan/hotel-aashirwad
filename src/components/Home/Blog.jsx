@@ -1,4 +1,3 @@
-import React from "react";
 import { motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Clock } from "lucide-react";
@@ -16,35 +15,30 @@ const containerVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
+  visible: { 
+    opacity: 1, 
     y: 0,
-    transition: {
-      duration: 0.7,
-      ease: [0.21, 0.45, 0.32, 0.9],
-    },
+    transition: { type: "spring", stiffness: 100, damping: 20 }
   },
 };
 
 const Blog = () => {
-    const { data: blogSectionData, loading: blogSectionLoading } = useBlogSection();
+  const { data: blogSectionData, loading: blogSectionLoading } = useBlogSection();
 
-    if (blogSectionLoading) return null;
+  if (blogSectionLoading) return null;
 
-    const blogs = blogSectionData?.items || [];
+  const blogs = blogSectionData?.items || [];
 
-    return (
-    <section className="relative bg-white py-20 lg:py-28 overflow-hidden">
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-[#f9f8f6] -z-0 hidden lg:block" />
-      
-      <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="mb-16 text-center lg:text-left flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-          <div className="max-w-2xl">
+  return (
+    <section className="bg-white py-16 sm:py-20 lg:py-24 border-t border-[#e5e5e5]">
+      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
+        
+        {/* HEADER */}
+        <div className="mb-12 text-center sm:mb-16">
           <Motion.h2 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
             transition={{ duration: 0.5 }}
             className="font-serif text-3xl uppercase tracking-[0.14em] text-[#0f1f47] sm:text-4xl"
           >
@@ -52,100 +46,98 @@ const Blog = () => {
           </Motion.h2>
 
           <Motion.p 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.8 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mx-auto mt-4 max-w-xl text-[#4f4f4f] leading-relaxed"
           >
             {blogSectionData?.description || "Discover travel stories, local experiences and useful tips to make your stay in Pokhara unforgettable."}
           </Motion.p>
-          </div>
 
           <Motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+             initial={{ opacity: 0 }}
+             whileInView={{ opacity: 1 }}
+             viewport={{ once: true }}
+             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-2 border-b-2 border-[#9b7b45] pb-1 text-sm font-medium uppercase tracking-widest text-[#0f1f47] transition-all hover:border-[#0f1f47] hover:text-[#9b7b45]"
-            >
-              View All Stories <ArrowRight className="h-4 w-4" />
+            <Link to="/blog" className="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors">
+              View All Posts <ArrowRight className="w-4 h-4" />
             </Link>
           </Motion.div>
         </div>
 
-        <Motion.div
+        {/* BLOG GRID */}
+        <Motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10"
         >
-          {blogs.map((post) => {
-              const imageUrl = post.featured_image?.startsWith('http') 
-                  ? post.featured_image 
-                  : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${post.featured_image}`;
-              
-              return (
-                <Motion.article
-                  key={post.id}
-                  variants={itemVariants}
-                  className="group flex flex-col bg-white border border-[#e5e5e5] shadow-sm transition-all duration-500 hover:shadow-xl hover:border-[#9b7b45]/30"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={imageUrl}
-                      alt={post.blog_title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#0f1f47] border border-[#d8d1c2]">
-                      {post.category}
+          {blogs.map((blog, index) => {
+            const imageUrl = blog.featured_image?.startsWith('http') 
+              ? blog.featured_image 
+              : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${blog.featured_image}`;
+
+            return (
+              <Motion.div
+                key={blog.id || index}
+                variants={itemVariants}
+                className="group flex flex-col items-center bg-[#f7f5f1] border border-transparent hover:border-[#e5e5e5] transition-colors duration-300 pb-8"
+              >
+                <div className="w-full h-[340px] overflow-hidden mb-6 relative bg-gray-200">
+                  <img
+                    src={imageUrl}
+                    alt={blog.blog_title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                <div className="px-6 flex flex-col items-center text-center flex-grow">
+                  {/* Meta details using proper icons */}
+                  <div className="flex flex-wrap items-center justify-center gap-4 text-[10px] sm:text-xs tracking-wider uppercase text-[#6a6a6a] font-semibold mb-4">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[#9b7b45]" />
+                      <span>
+                        {isNaN(Date.parse(blog.created_at)) 
+                          ? blog.created_at 
+                          : new Date(blog.created_at).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric',
+                              year: 'numeric',
+                            })}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[#9b7b45]" />
+                      <span>{blog.read_time} Min</span>
                     </div>
                   </div>
 
-                  <div className="flex flex-1 flex-col p-6 lg:p-8">
-                    <div className="mb-4 flex items-center gap-4 text-[11px] font-medium uppercase tracking-wider text-[#9b7b45]">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar className="h-3 w-3" /> {new Date(post.created_at).toLocaleDateString()}
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="h-3 w-3" /> {post.read_time} Min
-                      </span>
-                    </div>
+                  <p className="text-xs uppercase tracking-[0.2em] font-semibold text-[#9b7b45] mb-3">
+                    {blog.category}
+                  </p>
 
-                    <h3 className="mb-4 font-serif text-xl uppercase tracking-wider text-[#0f1f47] transition-colors duration-300 group-hover:text-[#9b7b45] lg:text-2xl leading-tight">
-                      <Link to={`/blog/${post.slug}`}>
-                        {post.blog_title}
-                      </Link>
-                    </h3>
+                  <h3 className="font-serif text-xl tracking-wide text-[#0f1f47] group-hover:text-[#9b7b45] transition-colors mb-4 line-clamp-2">
+                    {blog.blog_title}
+                  </h3>
 
-                    <p className="mb-8 line-clamp-2 text-sm leading-relaxed text-[#4f4f4f]">
-                      {post.excerpt}
-                    </p>
+                  <p className="text-sm text-[#4f4f4f] leading-relaxed mb-6 line-clamp-3">
+                    {blog.excerpt}
+                  </p>
 
-                    <div className="mt-auto flex items-center justify-between pt-6 border-t border-[#f0f0f0]">
-                      <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#0f1f47]">
-                        <div className="w-6 h-6 rounded-full bg-[#f9f8f6] flex items-center justify-center border border-[#e5e5e5]">
-                           <User className="w-3 h-3 text-[#9b7b45]" />
-                        </div>
-                        By Hotel Aashirwad
-                      </div>
-                      
-                      <Link
-                        to={`/blog/${post.slug}`}
-                        className="text-xs font-bold uppercase tracking-[0.15em] text-[#9b7b45] group-hover:text-[#0f1f47] transition-colors"
-                      >
-                        Read More
-                      </Link>
-                    </div>
-                  </div>
-                </Motion.article>
-              );
+                  <Link to={`/blog/${blog.slug || blog.id}`} className="mt-auto items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#0f1f47] pb-1 border-b border-[#0f1f47] hover:text-[#9b7b45] hover:border-[#9b7b45] transition-colors inline-flex">
+                    Read Article <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </Motion.div>
+            );
           })}
         </Motion.div>
+        
       </div>
     </section>
   );
