@@ -1,9 +1,14 @@
 import { motion as Motion } from "framer-motion";
-import { activitiesData } from "../../data/activitiesData";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useActivitySection } from "../../hooks/useActivitySection";
 
 const ActivitiesSection = () => {
+  const { data, loading, error } = useActivitySection();
+
+  if (loading || error) return null;
+
+  const activities = data?.items || [];
   return (
     <section className="bg-[#efefef] py-16 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">
@@ -15,14 +20,13 @@ const ActivitiesSection = () => {
           className="mx-auto mb-12 max-w-4xl text-center sm:mb-16"
         >
           <p className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#6a6a6a]">
-            Activities
+            {data?.section_title || "Activities"}
           </p>
           <h2 className="mb-4 font-serif text-3xl uppercase tracking-[0.14em] text-[#111111] sm:text-4xl uppercase">
-            Experience Pokhara
+            {data?.headline || "Experience Pokhara"}
           </h2>
           <p className="text-sm leading-7 text-[#404040] sm:text-base sm:leading-8">
-            Experience the best of Pokhara with unforgettable adventures and cultural experiences. From scenic mountain
-            views and peaceful lake moments to famous landmarks, discover what makes Pokhara truly unique.
+            {data?.description || "Experience the best of Pokhara with unforgettable adventures and cultural experiences. From scenic mountain views and peaceful lake moments to famous landmarks, discover what makes Pokhara truly unique."}
           </p>
           <Motion.div
              initial={{ opacity: 0 }}
@@ -37,7 +41,7 @@ const ActivitiesSection = () => {
         </Motion.div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {activitiesData.map((activity, index) => (
+          {activities.map((activity, index) => (
             <Motion.article
               key={activity.id}
               initial={{ opacity: 0, y: 28 }}
@@ -48,8 +52,8 @@ const ActivitiesSection = () => {
             >
               <div className="overflow-hidden">
                 <img 
-                  src={activity.image} 
-                  alt={activity.imageAlt || activity.name} 
+                  src={activity.featured_image || activity.image} 
+                  alt={activity.name} 
                   className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-110" 
                 />
               </div>
@@ -59,26 +63,26 @@ const ActivitiesSection = () => {
                   {activity.name}
                 </h3>
 
-                <p className="mb-5 text-sm leading-7 text-[#4a4a4a] sm:text-sm">{activity.shortDescription}</p>
+                <p className="mb-5 text-sm leading-7 text-[#4a4a4a] sm:text-sm">{activity.shortDescription || activity.name}</p>
 
                 <div className="mt-auto grid grid-cols-2 gap-2 text-xs text-[#6a6a6a] border-t border-[#e5e5e5] pt-4 mb-4">
                   <div className="flex flex-col">
                     <span className="uppercase tracking-wider font-semibold text-[#9b7b45] mb-1">Duration</span>
-                    <span>{activity.details.duration}</span>
+                    <span>{activity.duration}</span>
                   </div>
                   <div className="flex flex-col">
                     <span className="uppercase tracking-wider font-semibold text-[#9b7b45] mb-1">Availability</span>
-                    <span>{activity.details.availability}</span>
+                    <span>{activity.availability}</span>
                   </div>
                 </div>
 
-                <a
-                  href={`/activities/${activity.id}`}
+                <Link
+                  to={`${activity.type === 'activity' ? '/activities' : '/experiences'}/${activity.slug || activity.id}`}
                   className="inline-flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-widest text-[#9b7b45] transition-all duration-300 hover:text-[#7f612f] group-hover:translate-x-1"
                 >
                   Learn More
                   <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
+                </Link>
               </div>
             </Motion.article>
           ))}

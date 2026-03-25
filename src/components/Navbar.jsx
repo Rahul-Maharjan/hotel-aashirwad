@@ -168,7 +168,7 @@ const Navbar = () => {
             {/* Right Section - Contact, Gift Vouchers, Book */}
             <div className="flex items-center gap-4 md:gap-6">
               <a
-                href="tel:+977-1234567890"
+                href="tel:+9779856036622"
                 className={`hidden lg:block transition-colors duration-300 ${textColor} ${hoverColor}`}
               >
                 <FaPhone size={16} />
@@ -182,7 +182,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                to="/reservation"
+                to="/contact"
                 className={`px-5 py-2 text-sm font-medium tracking-wider border transition-all duration-300 ${
                   isScrolledOrOpen
                     ? "border-[#1f1f1f] text-[#1f1f1f] hover:bg-[#1f1f1f] hover:text-white"

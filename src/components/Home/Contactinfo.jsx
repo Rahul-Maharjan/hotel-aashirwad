@@ -17,8 +17,8 @@ const contactDetails = [
     title: "Phone Number",
     description: (
       <div className="flex flex-col">
-        <a href="tel:+9779800000000" className="hover:text-[#9b7b45] transition-colors">+977 9800000000</a>
-        <a href="tel:+977061000000" className="hover:text-[#9b7b45] transition-colors">+977 061-000000</a>
+        <a href="tel:+9779856036622" className="hover:text-[#9b7b45] transition-colors">+977 9856036622</a>
+        {/* <a href="tel:+9779856036622" className="hover:text-[#9b7b45] transition-colors">+977 9856036622</a> */}
       </div>
     ),
   },

@@ -4,44 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import room from "../../assets/hotel/deluxe_1.jpg";
-import location from "../../assets/hotel/hotel_exterior_02.jpg";
-import hospitality from "../../assets/hotel/hotel_exterior_07.jpg";
-
-const differencesSlides = [
-  {
-    id: 1,
-    image: room,
-    title: "Enjoy Our Luxurious Rooms",
-    description:
-      "Each space is filled with carefully curated details and a warm sense of elegance.",
-  },
-  {
-    id: 2,
-    image: location,
-    title: "Our Location On The Lake",
-    description:
-      "Breathe fresh mountain air and experience Pokhara from a serene lakeside setting.",
-  },
-  {
-    id: 3,
-    image:
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80",
-    title: "Exceptional Dining Moments",
-    description:
-      "Enjoy refined flavors, elegant ambiance, and memorable culinary experiences.",
-  },
-  {
-    id: 4,
-    image: hospitality,
-    title: "Signature Hospitality",
-    description:
-      "Personalized service and thoughtful comfort designed around every guest journey.",
-  },
-];
-
+import { useDifferences } from "../../hooks/useDifferences";
 const Differences = () => {
+  const { data, loading, error } = useDifferences();
   const [swiperInstance, setSwiperInstance] = useState(null);
+
+  if (loading || error) return null;
+
+  const slides = data?.items || [];
+  if (slides.length === 0) return null;
 
   return (
     <section className="bg-[#f7f5f1] py-16 sm:py-20">
@@ -53,7 +24,7 @@ const Differences = () => {
           transition={{ duration: 0.6 }}
           className="mb-8 px-4 text-center font-serif text-2xl uppercase tracking-[0.22em] text-[#1f1f1f] sm:mb-12 sm:px-8 sm:text-4xl"
         >
-          Our Differences
+          {data?.headline || "Our Differences"}
         </Motion.h2>
 
         <div className="relative">
@@ -111,23 +82,22 @@ const Differences = () => {
               }}
               className="differences-swiper"
             >
-              {[...differencesSlides, ...differencesSlides].map((slide, index) => (
+              {[...slides, ...slides].map((slide, index) => (
                 <SwiperSlide key={`${slide.id}-${index}`}>
                   <div className="differences-slide-card relative h-[320px] overflow-hidden sm:h-[420px] lg:h-[520px]">
                     <img
                       src={slide.image}
-                      alt={slide.title}
+                      alt={slide.headline}
                       className="h-full w-full object-cover"
                     />
                     <div className="differences-slide-overlay absolute inset-0 bg-black" />
 
                     <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
                       <p className="font-serif text-2xl uppercase leading-snug sm:text-[1.8rem] lg:text-[2.4rem]">
-                        {slide.title}
+                        {slide.headline}
                       </p>
                       <p className="mt-5 max-w-3xl text-sm font-semibold leading-relaxed tracking-[0.01em] text-white/90 sm:text-base lg:text-lg">
                         {slide.description}
-                        {/* <span className="ml-2 inline-block">→</span> */}
                       </p>
                     </div>
                   </div>

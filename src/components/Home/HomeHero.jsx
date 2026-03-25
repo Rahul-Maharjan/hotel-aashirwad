@@ -1,69 +1,42 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import hero1 from "../../assets/hotel/hotel_exterior_01.jpg";
 import hero2 from "../../assets/parahreo.jpg";
+import { useHeroSection } from "../../hooks/useHeroSection";
 
 const HeroSection = () => {
-  // const [form, setForm] = useState({
-  //   checkin: "",
-  //   checkout: "",
-  //   adults: "1",
-  //   children: "0",
-  // });
+  const { data, loading, error } = useHeroSection()
 
-  const [slides] = useState([
-    {
-      image: hero1,
-      title: "Welcome to Hotel Aashirwad",
-      subtitle: "Luxury & Comfort in the Heart of Pokhara",
-    },
-    {
-      image: hero2,
-      title: "Elegant Rooms & Serene Views",
-      subtitle: "Experience premium hospitality like never before",
-    },
-    {
-      image:
-        "https://dorjes.com/wp-content/themes/yootheme/cache/8f/Lakes-in-Pokhara-8fccb9bc.jpeg",
-      title: "Unforgettable Stay",
-      subtitle: "Book now and enjoy exclusive deals",
-    },
-  ]);
+  const slides = useMemo(() => {
+    if (data?.slider_images?.length > 0) {
+      return data.slider_images.map((img) => ({
+        image: img.image_path,
+        title: img.heading || data.headline,
+        subtitle: img.sub_heading || data.description,
+      }));
+    }
+    
+    // Fallback slides
+    return [
+      {
+        image: hero1,
+        title: "Luxury & Comfort",
+        subtitle: "Welcome to Hotel Aashirwad",
+      },
+      {
+        image: hero2,
+        title: "Unforgettable Stay",
+        subtitle: "Book now and enjoy exclusive deals",
+      },
+    ];
+  }, [data]);
 
-  // const today = new Date().toISOString().split("T")[0];
-  // const handleChange = (e) => {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // };
+  if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>
+  if (error) return <div className="flex items-center justify-center h-screen text-red-500">Error: {error}</div>
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   const checkinDate = new Date(form.checkin);
-  //   const checkoutDate = new Date(form.checkout);
-  //   const now = new Date();
-
-  //   if (!form.checkin || !form.checkout) {
-  //     alert("Please select both check-in and check-out dates.");
-  //     return;
-  //   }
-
-  //   if (checkinDate < now.setHours(0, 0, 0, 0)) {
-  //     alert("Check-in date must be today or in the future.");
-  //     return;
-  //   }
-
-  //   if (checkoutDate <= checkinDate) {
-  //     alert("Check-out date must be after check-in date.");
-  //     return;
-  //   }
-
-  //   alert(
-  //     `Room is available!\nFrom: ${form.checkin}\nTo: ${form.checkout}\nAdults: ${form.adults}\nChildren: ${form.children}`,
-  //   );
-  // };
 
   return (
     <section className="relative w-full h-screen overflow-hidden">

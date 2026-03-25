@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { experiencesData } from '../data/experiencesData';
+import { useExperienceDetail } from '../hooks/useExperienceDetail';
+import { useExperiencesList } from '../hooks/useExperiencesList';
 import CommonHeader from '../components/CommonHeader';
 import { 
     ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight, 
@@ -11,17 +12,23 @@ const ExperienceDetail = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
     
+    const { data: experience, loading, error } = useExperienceDetail(slug);
+    const { data: allExperiences, loading: listLoading } = useExperiencesList();
+
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const experience = experiencesData.find(e => e.id === slug);
-    const relatedExperiences = experiencesData.filter(e => e.id !== slug).slice(0, 3);
+    const relatedExperiences = (allExperiences || [])
+        .filter(e => e.slug !== slug)
+        .slice(0, 3);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [slug]);
 
-    if (!experience) {
+    if (loading || listLoading) return null;
+
+    if (!experience || error) {
         return (
             <div className="min-h-[70vh] flex flex-col items-center justify-center bg-white px-4">
                 <h2 className="text-3xl font-serif text-[#0f1f47] uppercase tracking-wider mb-4">Experience Not Found</h2>
@@ -47,12 +54,15 @@ const ExperienceDetail = () => {
         document.body.style.overflow = "auto";
     };
 
+    const gallery = experience.gallery || [];
+    const featuredImage = gallery[0] || (experience.featured_image?.startsWith('http') ? experience.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${experience.featured_image}`);
+
     return (
         <article className="min-h-screen bg-white">
             <CommonHeader
                 title={experience.name}
-                description={experience.shortDescription}
-                image={experience.image}
+                description={experience.excerpt}
+                image={featuredImage}
                 imageAlt={experience.name}
                 heightClassName="h-[55vh]"
                 minHeightClassName="min-h-[450px]"
@@ -93,23 +103,25 @@ const ExperienceDetail = () => {
                         {/* Image Gallery */}
                         <section className="space-y-4">
                             <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">Gallery</h2>
-                            <div 
-                                className="w-full h-[400px] md:h-[500px] cursor-pointer group relative overflow-hidden"
-                                onClick={() => openLightbox(0)}
-                            >
-                                <img 
-                                    src={experience.images[0]} 
-                                    alt="Featured" 
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                />
-                                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                    <Maximize className="text-white w-8 h-8" />
+                            {gallery.length > 0 && (
+                                <div 
+                                    className="w-full h-[400px] md:h-[500px] cursor-pointer group relative overflow-hidden"
+                                    onClick={() => openLightbox(0)}
+                                >
+                                    <img 
+                                        src={gallery[0]} 
+                                        alt="Featured" 
+                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Maximize className="text-white w-8 h-8" />
+                                    </div>
                                 </div>
-                            </div>
+                            )}
                             
-                            {experience.images.length > 1 && (
+                            {gallery.length > 1 && (
                                 <div className="grid grid-cols-3 gap-4">
-                                    {experience.images.slice(1, 4).map((img, idx) => (
+                                    {gallery.slice(1, 4).map((img, idx) => (
                                         <div 
                                             key={idx + 1} 
                                             className="h-[120px] sm:h-[180px] cursor-pointer group relative overflow-hidden"
@@ -130,7 +142,7 @@ const ExperienceDetail = () => {
                         <section>
                             <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">What's Included</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 mt-6">
-                                {experience.included.map((item, i) => (
+                                {(experience.includes || []).map((item, i) => (
                                     <div key={i} className="flex items-start gap-3">
                                         <CheckCircle2 className="w-6 h-6 text-[#9b7b45] flex-shrink-0" />
                                         <span className="text-[#4f4f4f]">{item}</span>
@@ -152,44 +164,52 @@ const ExperienceDetail = () => {
                                 </h3>
                                 
                                 <div className="space-y-6">
-                                    <div className="flex items-start gap-4">
-                                        <Clock className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Duration</p>
-                                            <p className="text-[#0f1f47]">{experience.details.duration}</p>
+                                    {experience.duration && (
+                                        <div className="flex items-start gap-4">
+                                            <Clock className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Duration</p>
+                                                <p className="text-[#0f1f47]">{experience.duration}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                     
-                                    <div className="flex items-start gap-4">
-                                        <Calendar className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Availability</p>
-                                            <p className="text-[#0f1f47]">{experience.details.availability}</p>
+                                    {experience.availability && (
+                                        <div className="flex items-start gap-4">
+                                            <Calendar className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Availability</p>
+                                                <p className="text-[#0f1f47]">{experience.availability}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                     
-                                    <div className="flex items-start gap-4">
-                                        <Users className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Group Size</p>
-                                            <p className="text-[#0f1f47]">{experience.details.groupSize}</p>
+                                    {experience.group_size && (
+                                        <div className="flex items-start gap-4">
+                                            <Users className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Group Size</p>
+                                                <p className="text-[#0f1f47]">{experience.group_size}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
 
-                                    <div className="flex items-start gap-4">
-                                        <Navigation className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
-                                        <div>
-                                            <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Requirements</p>
-                                            <p className="text-[#0f1f47]">{experience.details.requirements}</p>
+                                    {experience.requirements && (
+                                        <div className="flex items-start gap-4">
+                                            <Navigation className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
+                                            <div>
+                                                <p className="text-xs uppercase tracking-wider text-[#6a6a6a] font-semibold">Requirements</p>
+                                                <p className="text-[#0f1f47]">{experience.requirements}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
                                 </div>
                             </div>
                             
                             {/* Booking CTA */}
                             <div className="bg-[#0f1f47] p-8 text-white text-center shadow-2xl">
                                 <h3 className="font-serif text-2xl uppercase tracking-wide mb-2">Reserve Now</h3>
-                                <p className="text-3xl font-bold text-[#9b7b45] mb-6">{experience.details.price}</p>
+                                <p className="text-3xl font-bold text-[#9b7b45] mb-6">{experience.price}</p>
                                 
                                 <button className="w-full py-4 bg-white text-[#0f1f47] font-semibold uppercase tracking-widest hover:bg-[#9b7b45] hover:text-white transition-colors">
                                     Book This Experience
@@ -216,13 +236,13 @@ const ExperienceDetail = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                         {relatedExperiences.map(exp => (
                             <Link 
-                                to={`/experiences/${exp.id}`} 
+                                to={`/experiences/${exp.slug || exp.id}`} 
                                 key={exp.id}
                                 className="group block"
                             >
                                 <div className="h-72 overflow-hidden relative mb-4">
                                     <img 
-                                        src={exp.image} 
+                                        src={exp.featured_image ? (exp.featured_image.startsWith('http') ? exp.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${exp.featured_image}`) : "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop"} 
                                         alt={exp.name} 
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
@@ -232,7 +252,7 @@ const ExperienceDetail = () => {
                                     {exp.name}
                                 </h3>
                                 <p className="text-[#6a6a6a] text-sm line-clamp-2">
-                                    {exp.shortDescription}
+                                    {exp.excerpt || exp.description}
                                 </p>
                             </Link>
                         ))}
@@ -251,27 +271,27 @@ const ExperienceDetail = () => {
                     </button>
                     
                     <button 
-                        onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === 0 ? experience.images.length - 1 : curr - 1); }}
+                        onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === 0 ? gallery.length - 1 : curr - 1); }}
                         className="absolute left-4 lg:left-10 text-white/50 hover:text-white transition-colors p-2"
                     >
                         <ChevronLeft className="w-10 h-10 md:w-14 md:h-14" />
                     </button>
 
                     <img 
-                        src={experience.images[currentImageIndex]} 
+                        src={gallery[currentImageIndex]} 
                         alt="Lightbox View" 
                         className="max-h-[85vh] max-w-[90vw] object-contain shadow-2xl"
                     />
 
                     <button 
-                         onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === experience.images.length - 1 ? 0 : curr + 1); }}
+                         onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === gallery.length - 1 ? 0 : curr + 1); }}
                         className="absolute right-4 lg:right-10 text-white/50 hover:text-white transition-colors p-2"
                     >
                         <ChevronRight className="w-10 h-10 md:w-14 md:h-14" />
                     </button>
 
                     <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white/70 tracking-widest text-sm font-semibold">
-                        {currentImageIndex + 1} / {experience.images.length}
+                        {currentImageIndex + 1} / {gallery.length}
                     </div>
                 </div>
             )}

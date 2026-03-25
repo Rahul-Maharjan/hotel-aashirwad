@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import about1 from "../../assets/hotel/hotel_exterior_07.jpg";
 import about2 from "../../assets/hotel/hotel_exterior_05.jpg";
 import about3 from "../../assets/hotel/deluxe_1.jpg";
+import useAboutSection from "../../hooks/useAboutSection";
 
 const aboutImages = [
   {
@@ -21,6 +22,7 @@ const aboutImages = [
 ];
 
 const AboutUs = () => {
+  const { data, loading, error } = useAboutSection();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const showPreviousImage = () => {
@@ -32,6 +34,9 @@ const AboutUs = () => {
   const showNextImage = () => {
     setActiveImageIndex((current) => (current + 1) % aboutImages.length);
   };
+
+  if (loading) return null; 
+  if (error) return null; 
 
   return (
     <section className="w-full bg-[#efefef] py-16 sm:py-20 lg:py-24">
@@ -66,19 +71,17 @@ const AboutUs = () => {
             className="order-2 px-1 md:order-1 md:px-0"
           >
             <h3 className="mb-4 max-w-sm font-serif text-3xl uppercase leading-tight text-[#0f1f47] sm:text-4xl">
-              Beauty In Every Detail
+              {data?.headline || "Beauty In Every Detail"}
             </h3>
             <p className="max-w-md text-base leading-8 text-[#333333] sm:text-lg">
-              Every room and suite is crafted for comfort, elegance, and calm.
-              From tasteful interiors to premium amenities, each detail is
-              designed to make your stay relaxing and unforgettable.
+              {data?.description || "Every room and suite is crafted for comfort, elegance, and calm. From tasteful interiors to premium amenities, each detail is designed to make your stay relaxing and unforgettable."}
             </p>
 
             <Link
-              to="/about"
+              to={`/${data?.cta_route || "about"}`}
               className="mt-8 inline-flex items-center gap-3 text-sm font-medium uppercase tracking-[0.16em] text-[#9b7b45] transition-colors duration-300 hover:text-[#7f612f] sm:text-base"
             >
-              Discover Our Hotel
+              {data?.cta_name || "Discover Our Hotel"}
               <span aria-hidden="true" className="text-lg">
                 →
               </span>

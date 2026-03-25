@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { roomData } from "../../data/roomData";
 import { ArrowRight } from "lucide-react";
+import { useRoomSection } from "../../hooks/useRoomSection";
 
 const Accomodation = () => {
+  const { data, loading, error } = useRoomSection();
   const [activeRoomId, setActiveRoomId] = useState(roomData[0].id);
 
   const activeRoom = useMemo(
     () => roomData.find((room) => room.id === activeRoomId) || roomData[0],
     [activeRoomId]
   );
+
+  if (loading || error) return null;
 
   return (
     <section id="rooms" className="relative bg-white py-20 lg:py-32">
@@ -20,13 +24,13 @@ const Accomodation = () => {
         <div className="w-full lg:w-5/12 flex flex-col justify-center">
           <div className="mb-12">
             <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[#9b7b45] mb-4">
-              Accommodations
+              {data?.section_title || "Accommodations"}
             </h2>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#0f1f47] leading-tight mb-6">
-              Rest <br className="hidden lg:block" />In Luxury
-            </h1>
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-[#0f1f47] leading-tight mb-6"
+                dangerouslySetInnerHTML={{ __html: data?.headline ? data.headline.replace("Rest In Luxury", "Rest <br className=\"hidden lg:block\" />In Luxury") : "Rest <br className=\"hidden lg:block\" />In Luxury" }}
+            />
             <p className="text-[#4f4f4f] leading-relaxed max-w-md">
-              Experience unparalleled comfort and style. Every room is designed to provide a perfect sanctuary during your stay in Pokhara.
+              {data?.description || "Experience unparalleled comfort and style. Every room is designed to provide a perfect sanctuary during your stay in Pokhara."}
             </p>
           </div>
 
