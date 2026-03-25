@@ -10,60 +10,27 @@ import {
   UtensilsCrossed,
   Wifi,
 } from "lucide-react";
+import { useServiceSection } from "../../hooks/useServiceSection";
 
-const services = [
-  {
-    icon: Bell,
-    title: "24/7 Service",
-    description:
-      "Round-the-clock front desk and room service to serve your every need.",
-  },
-  {
-    icon: Shirt,
-    title: "Laundry",
-    description: "Quick and professional laundry services during your stay.",
-  },
-  {
-    icon: Car,
-    title: "Parking",
-    description: "Spacious and secure on-site parking for all guests.",
-  },
-  {
-    icon: UtensilsCrossed,
-    title: "Restaurant",
-    description: "Enjoy a variety of local and international dishes.",
-  },
-  {
-    icon: Martini,
-    title: "Bars",
-    description: "Relax at our elegant bars with a wide range of drinks.",
-  },
-  {
-    icon: ShowerHead,
-    title: "Hot & Cold Water",
-    description: "24-hour hot and cold water facility for your comfort.",
-  },
-  {
-    icon: Leaf,
-    title: "Greenery",
-    description:
-      "A peaceful environment surrounded by beautiful natural greenery.",
-  },
-  {
-    icon: Wifi,
-    title: "Free WiFi",
-    description:
-      "Stay connected with high-speed internet throughout the property.",
-  },
-  {
-    icon: Info,
-    title: "Concierge",
-    description:
-      "Personalized concierge service for all your travel and stay needs.",
-  },
-];
+const iconMap = {
+  bell: Bell,
+  tshirt: Shirt,
+  car: Car,
+  utensils: UtensilsCrossed,
+  martini: Martini,
+  shower: ShowerHead,
+  leaf: Leaf,
+  wifi: Wifi,
+  info: Info,
+};
 
 const OurServices = () => {
+  const { data: sectionData, loading } = useServiceSection();
+
+  if (loading) return null;
+
+  const services = sectionData?.items || [];
+
   return (
     <section className="relative overflow-hidden bg-[#efefef] py-16 sm:py-20 lg:py-24">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#f7f5f1] to-transparent" />
@@ -77,24 +44,23 @@ const OurServices = () => {
           className="mx-auto mb-12 max-w-3xl text-center sm:mb-16"
         >
           <p className="mb-2 text-xs font-medium uppercase tracking-[0.22em] text-[#6a6a6a]">
-            Crafted For Comfort
+            {sectionData?.section_title || "Crafted For Comfort"}
           </p>
           <h2 className="mb-4 font-serif text-3xl uppercase tracking-[0.14em] text-[#111111] sm:text-4xl">
-            Our Services
+            {sectionData?.headline || "Our Services"}
           </h2>
           <p className="text-sm leading-7 text-[#404040] sm:text-base sm:leading-8">
-            Thoughtful amenities and attentive hospitality designed to make each
-            stay seamless, relaxing, and memorable.
+            {sectionData?.description || "Thoughtful amenities and attentive hospitality designed to make each stay seamless, relaxing, and memorable."}
           </p>
         </Motion.div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, index) => {
-            const Icon = service.icon;
+            const Icon = iconMap[service.icon?.toLowerCase()] || Info;
 
             return (
               <Motion.div
-                key={service.title}
+                key={service.id || index}
                 initial={{ opacity: 0, y: 25 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, delay: index * 0.06 }}
@@ -106,7 +72,7 @@ const OurServices = () => {
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mb-2 font-serif text-2xl uppercase tracking-[0.05em] text-[#0f1f47]">
-                  {service.title}
+                  {service.service_name}
                 </h3>
                 <p className="text-sm leading-7 text-[#4a4a4a] sm:text-base">
                   {service.description}

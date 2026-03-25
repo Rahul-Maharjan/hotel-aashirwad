@@ -1,19 +1,24 @@
 import React from 'react';
-import { blogData } from '../../data/blogData';
 import BlogCard from './BlogCard';
+import { useBlogsList } from '../../hooks/useBlogsList';
 
-const RelatedPosts = ({ currentPostId, category }) => {
+const RelatedPosts = ({ currentPostSlug, category }) => {
+  // Fetch blogs to find related ones
+  const { data: blogs, loading } = useBlogsList(1);
+
+  if (loading) return null;
+
   // Find up to 3 related posts in the same category, excluding the current post
-  const relatedPosts = blogData
-    .filter((post) => post.category === category && post.id !== currentPostId)
+  const relatedPosts = blogs
+    .filter((post) => (post.blog_category || post.category) === category && post.slug !== currentPostSlug)
     .slice(0, 3);
 
   // If there aren't enough related posts in the same category, fill with other recent posts
   if (relatedPosts.length < 3) {
-    const additionalPosts = blogData
+    const additionalPosts = blogs
       .filter(
         (post) =>
-          post.id !== currentPostId && !relatedPosts.some((rp) => rp.id === post.id)
+          post.slug !== currentPostSlug && !relatedPosts.some((rp) => rp.slug === post.slug)
       )
       .slice(0, 3 - relatedPosts.length);
     relatedPosts.push(...additionalPosts);

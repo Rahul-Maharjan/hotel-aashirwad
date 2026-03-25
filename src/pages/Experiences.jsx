@@ -28,9 +28,6 @@ const Experiences = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 md:space-y-32 mt-20">
                 {(experiencesData || []).map((exp, index) => {
                     const isEven = index % 2 === 0;
-                    const imageUrl = exp.featured_image 
-                        ? (exp.featured_image.startsWith('http') ? exp.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${exp.featured_image}`)
-                        : "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=1200&auto=format&fit=crop";
 
                     return (
                         <div key={exp.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-10 lg:gap-20`}>
@@ -39,7 +36,7 @@ const Experiences = () => {
                                 <div className="relative overflow-hidden group">
                                     <Link to={`/experiences/${exp.slug || exp.id}`}>
                                         <img 
-                                            src={imageUrl} 
+                                            src={exp.featured_image} 
                                             alt={exp.name} 
                                             className="w-full h-[350px] md:h-[450px] object-cover transition-transform duration-1000 group-hover:scale-105"
                                         />

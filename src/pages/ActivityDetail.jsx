@@ -3,15 +3,15 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useActivityDetail } from '../hooks/useActivityDetail';
 import { useActivitiesList } from '../hooks/useActivitiesList';
 import CommonHeader from '../components/CommonHeader';
-import { 
-    ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight, 
+import {
+    ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight,
     Clock, Calendar, Users, CheckCircle2, Navigation, Activity
 } from 'lucide-react';
 
 const ActivityDetail = () => {
     const { slug } = useParams();
     const navigate = useNavigate();
-    
+
     const { data: activity, loading, error } = useActivityDetail(slug);
     const { data: allActivities, loading: listLoading } = useActivitiesList();
 
@@ -55,7 +55,7 @@ const ActivityDetail = () => {
     };
 
     const gallery = activity.gallery || [];
-    const featuredImage = gallery[0] || (activity.featured_image?.startsWith('http') ? activity.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${activity.featured_image}`);
+    const featuredImage = gallery[0] || (activity.featured_image?.startsWith('http') ? activity.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/${activity.featured_image}`);
 
     return (
         <article className="min-h-screen bg-[#f9f8f6]">
@@ -120,13 +120,13 @@ const ActivityDetail = () => {
                         <section className="space-y-4">
                             <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">Gallery</h2>
                             {gallery.length > 0 && (
-                                <div 
+                                <div
                                     className="w-full h-[400px] md:h-[500px] cursor-pointer group relative overflow-hidden"
                                     onClick={() => openLightbox(0)}
                                 >
-                                    <img 
-                                        src={gallery[0]} 
-                                        alt="Featured" 
+                                    <img
+                                        src={gallery[0]}
+                                        alt="Featured"
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
                                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -134,18 +134,18 @@ const ActivityDetail = () => {
                                     </div>
                                 </div>
                             )}
-                            
+
                             {gallery.length > 1 && (
                                 <div className="grid grid-cols-3 gap-4">
                                     {gallery.slice(1, 4).map((img, idx) => (
-                                        <div 
-                                            key={idx + 1} 
+                                        <div
+                                            key={idx + 1}
                                             className="h-[120px] sm:h-[180px] cursor-pointer group relative overflow-hidden"
                                             onClick={() => openLightbox(idx + 1)}
                                         >
-                                            <img 
-                                                src={img} 
-                                                alt={`Thumbnail ${idx + 1}`} 
+                                            <img
+                                                src={img}
+                                                alt={`Thumbnail ${idx + 1}`}
                                                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                             />
                                         </div>
@@ -159,13 +159,13 @@ const ActivityDetail = () => {
                     {/* Sidebar (Right) - Practical Info & Booking Widget */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-28 space-y-8">
-                            
+
                             {/* Key Info Card */}
                             <div className="bg-white border-t-4 border-[#0f1f47] shadow-lg p-8">
                                 <h3 className="font-serif text-[#0f1f47] text-2xl uppercase tracking-wide mb-6 pb-6 border-b border-[#d8d1c2]">
                                     Activity Details
                                 </h3>
-                                
+
                                 <div className="space-y-6">
                                     {activity.duration && (
                                         <div className="flex items-start gap-4">
@@ -176,7 +176,7 @@ const ActivityDetail = () => {
                                             </div>
                                         </div>
                                     )}
-                                    
+
                                     {activity.availability && (
                                         <div className="flex items-start gap-4">
                                             <Calendar className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
@@ -186,7 +186,7 @@ const ActivityDetail = () => {
                                             </div>
                                         </div>
                                     )}
-                                    
+
                                     {activity.group_size && (
                                         <div className="flex items-start gap-4">
                                             <Users className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
@@ -196,7 +196,7 @@ const ActivityDetail = () => {
                                             </div>
                                         </div>
                                     )}
-                                    
+
                                     {activity.requirements && (
                                         <div className="flex items-start gap-4">
                                             <Navigation className="w-5 h-5 text-[#9b7b45] flex-shrink-0 mt-1" />
@@ -208,16 +208,16 @@ const ActivityDetail = () => {
                                     )}
                                 </div>
                             </div>
-                            
+
                             {/* Booking CTA */}
                             <div className="bg-[#f7f5f1] border border-[#e5e5e5] p-8 text-center text-[#0f1f47]">
                                 <h3 className="font-serif text-2xl uppercase tracking-wide mb-2">Join Us</h3>
                                 <p className="text-3xl font-bold text-[#9b7b45] mb-6">{activity.price}</p>
-                                
+
                                 <button className="w-full py-4 bg-[#0f1f47] text-white font-semibold uppercase tracking-widest hover:bg-[#9b7b45] transition-colors">
                                     Inquire Now
                                 </button>
-                                
+
                                 <p className="mt-4 text-xs text-[#6a6a6a] uppercase tracking-wider">
                                     Advanced booking required
                                 </p>
@@ -238,15 +238,15 @@ const ActivityDetail = () => {
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
                         {relatedActivities.map(act => (
-                            <Link 
-                                to={`/activities/${act.slug || act.id}`} 
+                            <Link
+                                to={`/activities/${act.slug || act.id}`}
                                 key={act.id}
                                 className="group block bg-white border border-[#e5e5e5] hover:shadow-xl transition-all duration-300"
                             >
                                 <div className="h-64 overflow-hidden relative">
-                                    <img 
-                                        src={act.featured_image ? (act.featured_image.startsWith('http') ? act.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/storage/${act.featured_image}`) : "https://images.unsplash.com/photo-1596766448374-de753df183a3?q=80&w=1200&auto=format&fit=crop"} 
-                                        alt={act.name} 
+                                    <img
+                                        src={act.featured_image ? (act.featured_image.startsWith('http') ? act.featured_image : `https://hotel-aashirwad-cms-main-z0uqd8.free.laravel.cloud/${act.featured_image}`) : "https://images.unsplash.com/photo-1596766448374-de753df183a3?q=80&w=1200&auto=format&fit=crop"}
+                                        alt={act.name}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />
                                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
@@ -268,28 +268,28 @@ const ActivityDetail = () => {
             {/* Lightbox Overlay */}
             {lightboxOpen && (
                 <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
-                    <button 
+                    <button
                         onClick={closeLightbox}
                         className="absolute top-6 right-6 lg:top-10 lg:right-10 text-white/70 hover:text-white transition-colors"
                     >
                         <X className="w-8 h-8 md:w-10 md:h-10" />
                     </button>
-                    
-                    <button 
+
+                    <button
                         onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === 0 ? gallery.length - 1 : curr - 1); }}
                         className="absolute left-4 lg:left-10 text-white/50 hover:text-white transition-colors p-2"
                     >
                         <ChevronLeft className="w-10 h-10 md:w-14 md:h-14" />
                     </button>
 
-                    <img 
-                        src={gallery[currentImageIndex]} 
-                        alt="Lightbox View" 
+                    <img
+                        src={gallery[currentImageIndex]}
+                        alt="Lightbox View"
                         className="max-h-[85vh] max-w-[90vw] object-contain shadow-2xl"
                     />
 
-                    <button 
-                         onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === gallery.length - 1 ? 0 : curr + 1); }}
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(curr => curr === gallery.length - 1 ? 0 : curr + 1); }}
                         className="absolute right-4 lg:right-10 text-white/50 hover:text-white transition-colors p-2"
                     >
                         <ChevronRight className="w-10 h-10 md:w-14 md:h-14" />

@@ -28,7 +28,7 @@ function App() {
           <Route path="/activities" element={<Activities />} />
           <Route path="/activities/:slug" element={<ActivityDetail />} />
           <Route path="/blog" element={<BlogListing />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/blog/:slug" element={<BlogDetail />} />
         </Route>
       </Routes>
     </Router>
