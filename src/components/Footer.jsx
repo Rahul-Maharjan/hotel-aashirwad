@@ -13,6 +13,7 @@ import agodaLogo from "../assets/ota/Agoda_logo_2019.svg.png";
 import bookingLogo from "../assets/ota/bookingsystem.png";
 import expediaLogo from "../assets/ota/Expedia-Logo-2021.png";
 import makemytripLogo from "../assets/ota/makemytrip.png";
+import { useContactDetails } from "../hooks/useContactDetails";
 
 const quickLinks = [
   { name: "Home", path: "/" },
@@ -44,6 +45,12 @@ const paymentLogos = [
 ];
 
 export default function Footer() {
+  const { data: contactData } = useContactDetails();
+
+  const address = contactData?.address || "Lakeside-6, Pokhara, Nepal";
+  const phone = contactData?.phones?.[0] || "+977 9856036622";
+  const email = contactData?.emails?.[0] || "info@hotelaashirwad.com";
+
   return (
     <footer className="bg-white text-gray-800 font-body">
       {/* NEWSLETTER SECTION */}
@@ -146,18 +153,18 @@ export default function Footer() {
             <ul className="space-y-4 text-gray-600">
               <li className="flex items-start gap-3 justify-center sm:justify-start">
                 <MapPin size={20} className="text-accent shrink-0" />
-                <span>Lakeside-6, Pokhara, Nepal</span>
+                <span>{address}</span>
               </li>
               <li className="flex items-center gap-3 justify-center sm:justify-start">
                 <Phone size={20} className="text-accent shrink-0" />
-                <a href="tel:+9779856036622" className="hover:text-accent transition-colors">
-                  +977 9856036622
+                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="hover:text-accent transition-colors">
+                  {phone}
                 </a>
               </li>
               <li className="flex items-center gap-3 justify-center sm:justify-start">
                 <Mail size={20} className="text-accent shrink-0" />
-                <a href="mailto:info@hotelaashirwad.com" className="hover:text-accent transition-colors">
-                  info@hotelaashirwad.com
+                <a href={`mailto:${email}`} className="hover:text-accent transition-colors">
+                  {email}
                 </a>
               </li>
             </ul>

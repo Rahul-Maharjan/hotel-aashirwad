@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import CommonHeader from '../components/CommonHeader';
 import { useActivityHero } from '../hooks/useActivityHero';
 import { useActivitiesList } from '../hooks/useActivitiesList';
+import SEO from '../components/SEO/SEO';
 
 const Activities = () => {
     const { data: heroData, loading: heroLoading } = useActivityHero();
@@ -17,6 +18,12 @@ const Activities = () => {
 
     return (
         <div className="min-h-screen bg-[#f9f8f6] pb-20">
+            <SEO 
+                title={heroData?.headline || "Activities in Pokhara"}
+                description={heroData?.description || "Explore thrilling adventures and mindful moments in Pokhara with our curated activities."}
+                image={heroData?.featured_image}
+                url="/activities"
+            />
             <CommonHeader
                 title={heroData?.headline || "ACTIVITIES"}
                 description={heroData?.description || "Discover the spirit of Pokhara. From thrilling aerial adventures to mindful moments in nature, our curated activities promise to elevate your stay."}

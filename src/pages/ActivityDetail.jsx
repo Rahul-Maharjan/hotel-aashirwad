@@ -7,6 +7,7 @@ import {
     ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight,
     Clock, Calendar, Users, CheckCircle2, Navigation, Activity
 } from 'lucide-react';
+import SEO from '../components/SEO/SEO';
 
 const ActivityDetail = () => {
     const { slug } = useParams();
@@ -59,6 +60,13 @@ const ActivityDetail = () => {
 
     return (
         <article className="min-h-screen bg-[#f9f8f6]">
+            <SEO 
+                title={activity.name}
+                description={activity.excerpt}
+                image={featuredImage}
+                url={`/activities/${slug}`}
+                type="website"
+            />
             <CommonHeader
                 title={activity.name}
                 description={activity.excerpt}

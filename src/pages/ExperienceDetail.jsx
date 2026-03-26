@@ -7,6 +7,7 @@ import {
     ArrowLeft, ArrowRight, Maximize, X, ChevronLeft, ChevronRight,
     Clock, Calendar, Users, CheckCircle2, Navigation
 } from 'lucide-react';
+import SEO from '../components/SEO/SEO';
 
 const ExperienceDetail = () => {
     const { slug } = useParams();
@@ -59,6 +60,13 @@ const ExperienceDetail = () => {
 
     return (
         <article className="min-h-screen bg-white">
+            <SEO 
+                title={experience.name}
+                description={experience.excerpt}
+                image={featuredImage}
+                url={`/experiences/${slug}`}
+                type="website"
+            />
             <CommonHeader
                 title={experience.name}
                 description={experience.excerpt}

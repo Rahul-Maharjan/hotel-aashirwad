@@ -4,23 +4,26 @@ import {
     Users, Maximize, BedDouble, ArrowLeft, CheckCircle2,
     X, ChevronLeft, ChevronRight, Calendar, ArrowRight,
     Wifi, Tv, Wind, Coffee, Bath, ShieldCheck, Shirt, Thermometer,
-    Package, Lock, Wine
+    Package, Lock, Wine, Search, Sparkles
 } from 'lucide-react';
 import CommonHeader from '../../components/CommonHeader';
 import { useRoomDetail } from '../../hooks/useRoomDetail';
 import { useRoomSection } from '../../hooks/useRoomSection';
+import SEO from '../../components/SEO/SEO';
 
-// Map specific strings to icons
+// Map specific strings from CMS to Lucide icons
 const getAmenityIcon = (iconName) => {
     const n = iconName?.toLowerCase() || '';
     if (n.includes('tv')) return <Tv className="w-5 h-5 text-[#9b7b45]" />;
     if (n.includes('wifi')) return <Wifi className="w-5 h-5 text-[#9b7b45]" />;
-    if (n.includes('wind') || n.includes('pool')) return <Wind className="w-5 h-5 text-[#9b7b45]" />;
+    if (n.includes('refrigerator') || n.includes('bar')) return <Wine className="w-5 h-5 text-[#9b7b45]" />;
     if (n.includes('coffee') || n.includes('tea')) return <Coffee className="w-5 h-5 text-[#9b7b45]" />;
-    if (n.includes('bath')) return <Bath className="w-5 h-5 text-[#9b7b45]" />;
+    if (n.includes('bath') || n.includes('shower')) return <Bath className="w-5 h-5 text-[#9b7b45]" />;
     if (n.includes('laundry') || n.includes('iron')) return <Shirt className="w-5 h-5 text-[#9b7b45]" />;
-    if (n.includes('check')) return <Thermometer className="w-5 h-5 text-[#9b7b45]" />;
-    return <CheckCircle2 className="w-5 h-5 text-[#9b7b45]" />;
+    if (n.includes('safe') || n.includes('locker')) return <Lock className="w-5 h-5 text-[#9b7b45]" />;
+    if (n.includes('sparkles') || n.includes('luxury')) return <Sparkles className="w-5 h-5 text-[#9b7b45]" />;
+    if (n.includes('check')) return <CheckCircle2 className="w-5 h-5 text-[#9b7b45]" />;
+    return <Package className="w-5 h-5 text-[#9b7b45]" />;
 };
 
 const SingleRoom = () => {
@@ -29,7 +32,7 @@ const SingleRoom = () => {
 
     const { data: room, loading, error } = useRoomDetail(urlSlug);
     const { data: roomSection } = useRoomSection();
-    
+
     // Filter out current room for related rooms section
     const relatedRooms = roomSection?.items?.filter(r => r.slug !== urlSlug).slice(0, 3) || [];
 
@@ -42,7 +45,11 @@ const SingleRoom = () => {
         window.scrollTo(0, 0);
     }, [urlSlug]);
 
-    if (loading) return null;
+    if (loading) return (
+        <div className="min-h-screen flex items-center justify-center bg-[#f7f5f1]">
+            <div className="w-12 h-12 border-4 border-[#9b7b45] border-t-transparent rounded-full animate-spin"></div>
+        </div>
+    );
 
     if (!room || error) {
         return (
@@ -86,8 +93,29 @@ const SingleRoom = () => {
         setCurrentImageIndex((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));
     };
 
+    const roomSchema = {
+      "@context": "https://schema.org",
+      "@type": "HotelRoom",
+      "name": room.room_name,
+      "description": room.excerpt,
+      "image": [room.featured_image],
+      "occupancy": {
+        "@type": "QuantitativeValue",
+        "value": room.occupancy
+      },
+      "priceRange": `${room.currency} ${room.price}`
+    };
+
     return (
         <article className="min-h-screen bg-white">
+            <SEO 
+                title={room.room_name}
+                description={room.excerpt}
+                image={room.featured_image}
+                url={`/rooms/${urlSlug}`}
+                type="website"
+                schema={roomSchema}
+            />
             {/* Header */}
             <CommonHeader
                 title={room.room_name}
@@ -203,8 +231,8 @@ const SingleRoom = () => {
                         {/* Description */}
                         <section>
                             <h2 className="text-2xl font-serif text-[#0f1f47] uppercase tracking-wide mb-6">Room Overview</h2>
-                            <div 
-                                className="text-[#4f4f4f] leading-relaxed text-justify whitespace-pre-line"
+                            <div
+                                className="text-[#4f4f4f] leading-relaxed text-justify whitespace-pre-line prose max-w-none"
                                 dangerouslySetInnerHTML={{ __html: room.description }}
                             />
                         </section>
@@ -247,7 +275,7 @@ const SingleRoom = () => {
                                     <div className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-12">
                                         <span className="font-semibold text-[#0f1f47] uppercase tracking-wider text-sm min-w-[150px]">Check-In / Check-Out</span>
                                         <div className="text-[#4f4f4f]">
-                                            <p>Check-in starts: {room.policy.checkin_time_start}</p>
+                                            <p>Check-in window: {room.policy.checkin_time_start} - {room.policy.checkin_time_end}</p>
                                             <p>Check-out by: {room.policy.checkout_time}</p>
                                         </div>
                                     </div>
@@ -304,9 +332,9 @@ const SingleRoom = () => {
                                 <div>
                                     <label className="block text-xs uppercase tracking-wider font-semibold text-[#0f1f47] mb-2">Guests</label>
                                     <select className="w-full bg-white border border-[#e5e5e5] px-4 py-3 text-[#2d2d2d] focus:outline-none focus:border-[#9b7b45] appearance-none">
-                                        <option>1 Adult</option>
-                                        <option>2 Adults</option>
-                                        <option>3 Adults</option>
+                                        {[...Array(room.occupancy)].map((_, i) => (
+                                            <option key={i + 1}>{i + 1} Guest{i > 0 ? 's' : ''}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -340,7 +368,7 @@ const SingleRoom = () => {
                             >
                                 <div className="h-64 overflow-hidden relative">
                                     <img
-                                        src={r.featured_image || r.image}
+                                        src={r.featured_image}
                                         alt={r.room_name}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                     />

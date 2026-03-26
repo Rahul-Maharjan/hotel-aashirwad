@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hotelaashirwad.com/sitemap.xml

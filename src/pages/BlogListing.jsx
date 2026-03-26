@@ -3,6 +3,7 @@ import CommonHeader from '../components/CommonHeader';
 import BlogCard from '../components/Blog/BlogCard';
 import { useBlogHero } from '../hooks/useBlogHero';
 import { useBlogsList } from '../hooks/useBlogsList';
+import SEO from '../components/SEO/SEO';
 
 const BlogListing = () => {
     const [page, setPage] = useState(1);
@@ -25,6 +26,12 @@ const BlogListing = () => {
 
     return (
         <div className="min-h-screen bg-gray-50/50">
+            <SEO 
+                title={heroData?.headline || "Our Blog & Stories"}
+                description={heroData?.description || "Explore the latest travel guides, hotel stories, and Pokhara insights from Hotel Aashirwad."}
+                image={heroData?.featured_image}
+                url="/blog"
+            />
             <CommonHeader
                 title={heroData?.headline || "Our Blog & Stories"}
                 description={heroData?.description || "Discover our latest insights, travel guides, and stories from around the world. Stay inspired for your next journey."}

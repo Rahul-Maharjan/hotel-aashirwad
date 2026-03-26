@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useExperienceHero } from '../hooks/useExperienceHero';
 import { useExperiencesList } from '../hooks/useExperiencesList';
 import CommonHeader from '../components/CommonHeader';
+import SEO from '../components/SEO/SEO';
 
 const Experiences = () => {
     const { data: heroData, loading: heroLoading } = useExperienceHero();
@@ -17,6 +18,12 @@ const Experiences = () => {
 
     return (
         <div className="min-h-screen bg-white pb-20">
+            <SEO 
+                title={heroData?.headline || "Curated Experiences"}
+                description={heroData?.description || "Indulge in wellness, culinary, and cultural moments at Hotel Aashirwad."}
+                image={heroData?.featured_image}
+                url="/experiences"
+            />
             <CommonHeader
                 title={heroData?.headline || "EXPERIENCES"}
                 description={heroData?.description || "Curated to perfection, our exclusive experiences are designed to awaken your senses and create unforgettable memories during your stay. Explore the finest wellness, culinary, and cultural moments."}

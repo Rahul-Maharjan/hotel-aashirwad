@@ -14,6 +14,7 @@ import {
 import CommonHeader from '../components/CommonHeader';
 import { useBlogDetail } from '../hooks/useBlogDetail';
 import RelatedPosts from '../components/Blog/RelatedPosts';
+import SEO from '../components/SEO/SEO';
 
 const BlogDetail = () => {
     const { slug: urlSlug } = useParams();
@@ -62,8 +63,30 @@ const BlogDetail = () => {
     const authorName = post.created_by_name || "Hotel Aashirwad";
     const keywords = post.keywords || post.tags || [];
 
+    const blogSchema = {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": title,
+      "image": [image],
+      "datePublished": dateStr,
+      "author": [{
+        "@type": "Person",
+        "name": authorName,
+        "url": window.location.origin
+      }]
+    };
+
     return (
         <article className="min-h-screen bg-white">
+            <SEO 
+                title={title}
+                description={post.excerpt || post.content?.substring(0, 160).replace(/<[^>]*>/g, '')}
+                image={image}
+                url={`/blog/${urlSlug}`}
+                type="article"
+                schema={blogSchema}
+                keywords={keywords.join(', ')}
+            />
             <CommonHeader
                 title={title}
                 image={image}

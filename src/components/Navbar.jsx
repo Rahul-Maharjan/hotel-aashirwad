@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaPhone, FaChevronRight } from "react-icons/fa";
 import logo from "../assets/logo.png";
 import { useRoomSection } from "../hooks/useRoomSection";
+import { useContactDetails } from "../hooks/useContactDetails";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -87,6 +88,9 @@ const Navbar = () => {
   const toggleSubmenu = (label) => {
     setExpandedMenu(expandedMenu === label ? null : label);
   };
+
+  const { data: contactData } = useContactDetails();
+  const phoneNumber = contactData?.phones?.[0] || "+977 9856036622";
 
   return (
     <>
@@ -178,7 +182,7 @@ const Navbar = () => {
             {/* Right Section - Contact, Gift Vouchers, Book */}
             <div className="flex items-center gap-4 md:gap-6">
               <a
-                href="tel:+9779856036622"
+                href={`tel:${phoneNumber.replace(/\s+/g, '')}`}
                 className={`hidden lg:block transition-colors duration-300 ${textColor} ${hoverColor}`}
               >
                 <FaPhone size={16} />
