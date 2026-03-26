@@ -1,23 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
-
-const reviews = [
-  {
-    name: "Eleanor Sterling",
-    location: "London, UK",
-    feedback: "An absolute masterpiece of a hotel. The attention to detail, from the exquisite dining to the impeccable service, left us breathless. A true sanctuary in Pokhara.",
-    rating: 5,
-  },
-  {
-    name: "James Cavendish",
-    location: "New York, USA",
-    feedback: "I have stayed in luxury properties worldwide, but the heartfelt hospitality here is unmatched. Waking up to the Himalayas in such elegance is an unforgettable experience.",
-    rating: 5,
-  },
-];
+import { useTestimonials } from '../../hooks/useTestimonials';
 
 const Testimonials = () => {
+    const { data, loading } = useTestimonials();
+
+    if (loading) return null;
+
+    const reviews = data || [];
+
     return (
         <section className="py-24 md:py-32 bg-[#f9f8f6] border-t border-[#e5e5e5]">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,7 +30,7 @@ const Testimonials = () => {
                 <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12">
                     {reviews.map((review, i) => (
                         <motion.div
-                            key={i}
+                            key={review.id || i}
                             className="bg-white p-10 md:p-14 shadow-sm border border-[#e5e5e5] relative"
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -52,13 +44,13 @@ const Testimonials = () => {
                             
                             <div className="relative z-10">
                                 <div className="flex gap-1 mb-6">
-                                    {[...Array(review.rating)].map((_, idx) => (
+                                    {[...Array(5)].map((_, idx) => (
                                         <Star key={idx} className="w-4 h-4 fill-[#9b7b45] text-[#9b7b45]" />
                                     ))}
                                 </div>
                                 
                                 <p className="text-[#4f4f4f] font-serif italic text-lg leading-relaxed mb-8">
-                                    "{review.feedback}"
+                                    "{review.testimonial}"
                                 </p>
                                 
                                 <div className="border-t border-[#e5e5e5] pt-6 flex items-center justify-between">
@@ -67,7 +59,7 @@ const Testimonials = () => {
                                             {review.name}
                                         </h4>
                                         <p className="text-xs text-[#6a6a6a] uppercase tracking-wider">
-                                            {review.location}
+                                            Via {review.platform}
                                         </p>
                                     </div>
                                 </div>
