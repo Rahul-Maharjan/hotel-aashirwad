@@ -34,7 +34,7 @@ const HeroSection = () => {
     ];
   }, [data]);
 
-  if (loading) return <div className="flex items-center justify-center h-screen">Loading...</div>
+  if (loading) return null;
   if (error) return <div className="flex items-center justify-center h-screen text-red-500">Error: {error}</div>
 
 

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
@@ -13,10 +14,30 @@ import BlogListing from "./pages/BlogListing";
 import BlogDetail from "./pages/BlogDetail";
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
+import LoadingScreen from "./components/LoadingScreen";
 import "./App.css";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+    };
+
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
   return (
+    <>
+      <LoadingScreen isVisible={isLoading} />
     <HelmetProvider>
       <Router>
         <Toaster position="top-right" reverseOrder={false} />
@@ -37,6 +58,7 @@ function App() {
         </Routes>
       </Router>
     </HelmetProvider>
+    </>
   );
 }
 
