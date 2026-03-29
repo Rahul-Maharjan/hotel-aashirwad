@@ -219,9 +219,9 @@ const ExperienceDetail = () => {
                                 <h3 className="font-serif text-2xl uppercase tracking-wide mb-2">Reserve Now</h3>
                                 <p className="text-3xl font-bold text-[#9b7b45] mb-6">{experience.price}</p>
 
-                                <button className="w-full py-4 bg-white text-[#0f1f47] font-semibold uppercase tracking-widest hover:bg-[#9b7b45] hover:text-white transition-colors">
+                                <Link to='/contact' className="w-full py-4 bg-white text-[#0f1f47] font-semibold uppercase tracking-widest hover:bg-[#9b7b45] hover:text-white transition-colors">
                                     Book This Experience
-                                </button>
+                                </Link>
 
                                 <p className="mt-4 text-xs text-white/70 uppercase tracking-wider">
                                     Subject to availability

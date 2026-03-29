@@ -222,9 +222,9 @@ const ActivityDetail = () => {
                                 <h3 className="font-serif text-2xl uppercase tracking-wide mb-2">Join Us</h3>
                                 <p className="text-3xl font-bold text-[#9b7b45] mb-6">{activity.price}</p>
 
-                                <button className="w-full py-4 bg-[#0f1f47] text-white font-semibold uppercase tracking-widest hover:bg-[#9b7b45] transition-colors">
+                                <Link to="/contact" className="w-full py-4 bg-[#0f1f47] text-white font-semibold uppercase tracking-widest hover:bg-[#9b7b45] transition-colors">
                                     Inquire Now
-                                </button>
+                                </Link>
 
                                 <p className="mt-4 text-xs text-[#6a6a6a] uppercase tracking-wider">
                                     Advanced booking required
